@@ -8,7 +8,7 @@ Introduction to Time Series and Forecas"><meta name="keywords"><meta content="wi
 </ul>
 <hr>
 <!--Lecture 1-->
-<h5 id="Time-series"><a href="#Time-series" class="headerlink" title="Time series"></a><strong>Time series</strong></h5><p>${X_t}$ is a collection of random variables where $t$ is the index of time.</p>
+<h5 id="Time-series"><a href="#Time-series" class="headerlink" title="Time series"></a><strong>Time series</strong></h5><p>$\{X_t\}$ is a collection of random variables where $t$ is the index of time.</p>
 <h5 id="The-process-of-dealing-with-time-series"><a href="#The-process-of-dealing-with-time-series" class="headerlink" title="The process of dealing with time series"></a><strong>The process of dealing with time series</strong></h5><ol>
 <li>Describe by plotting to have concise summary of data</li>
 <li>Explain by probabilistic models (joint distributions)</li>
@@ -18,10 +18,10 @@ Introduction to Time Series and Forecas"><meta name="keywords"><meta content="wi
 <h5 id="Semi-parametric-model"><a href="#Semi-parametric-model" class="headerlink" title="Semi-parametric model"></a><strong>Semi-parametric model</strong></h5><p>In semi-parametric models, we do not specify pdf and cdf of random variables, instead we specify $E(X_t)$ and $Cov(X_t, X_{t+j})$.</p>
 <h5 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a><strong>Examples</strong></h5><ol>
 <li><strong>iid noise</strong>: let $E(X_t)=0, \forall t$ and  $Pr(X_1 \leq x_1, X_2 \leq x_2, …, X_n \leq x_n) = \prod_{i=1}^n Pr(X_i \leq x_i) = \prod_{i=1}^n F(X_n)$ where $F(\cdot)$ is cumulative distribution function.</li>
-<li><strong>random walk</strong>: let ${X_t}$ be iid noise, and $S_t = X_1 + X_2 + … + X_t$. Here $S_t$ is a random walk. (Note that here $S_t$ are not independent, but $E(S_t)=0$)</li>
+<li><strong>random walk</strong>: let $\{X_t\}$ be iid noise, and $S_t = X_1 + X_2 + … + X_t$. Here $S_t$ is a random walk. (Note that here $S_t$ are not independent, but $E(S_t)=0$)</li>
 </ol>
 <!--Lecture 2-->
-<h5 id="Models-with-structures"><a href="#Models-with-structures" class="headerlink" title="Models with structures"></a><strong>Models with structures</strong></h5><p>Let ${Y_t}$ be a time series where $E(Y_t)=0, \forall t$. Let $X_t=m_t + Y_t$, where $m_t$ is a slowly changing function of time. (Note that $Y_t$ here is what makes $E(X_t)=0$, but $m_t$ here is what makes $E(X_t) \neq 0$)</p>
+<h5 id="Models-with-structures"><a href="#Models-with-structures" class="headerlink" title="Models with structures"></a><strong>Models with structures</strong></h5><p>Let $\{Y_t\}$ be a time series where $E(Y_t)=0, \forall t$. Let $X_t=m_t + Y_t$, where $m_t$ is a slowly changing function of time. (Note that $Y_t$ here is what makes $E(X_t)=0$, but $m_t$ here is what makes $E(X_t) \neq 0$)</p>
 <p>Some choices for $m_t$ including linear function of $t$ and polynomial function of $t$.</p>
 <h5 id="Models-with-seasonal-variation-periodicity"><a href="#Models-with-seasonal-variation-periodicity" class="headerlink" title="Models with seasonal variation (periodicity)"></a><strong>Models with seasonal variation (periodicity)</strong></h5><p>Let $X_t = S_t + Y_t$, where $E(Y_t)=0, \forall t$ and $S_t$ is a periodic function with period $d$ (i.e. $S_{t-d}=S_t$).</p>
 <p>Common choices for $S_t$ including sum of harmonic functions $S_t = a_0 + \sum^k_{j=1}(a_j \cos(\lambda_j t) + b_j\sin(\lambda_j t))$, where $a_j$ and $b_j$ are estimated, $\lambda_j$ are fixed frequencies.</p>
@@ -37,14 +37,14 @@ Introduction to Time Series and Forecas"><meta name="keywords"><meta content="wi
 <li>Forecast by inventory projected residuals</li>
 </ol>
 <h5 id="Why-we-focus-on-the-residuals-i-e-X-t-hat-m-t-X-t-hat-S-t"><a href="#Why-we-focus-on-the-residuals-i-e-X-t-hat-m-t-X-t-hat-S-t" class="headerlink" title="Why we focus on the residuals (i.e. $X_t - \hat{m_t}, X_t - \hat{S_t}$)"></a><strong>Why we focus on the residuals (i.e. $X_t - \hat{m_t}, X_t - \hat{S_t}$)</strong></h5><p>Let $W_i \overset{\text{iid}}{\sim}N(\mu, \sigma^2)$, then we have $W_i - \mu \sim N(0, \sigma^2)$. Now we can estimate $\mu$ to remove the signal, and also we can estimate $\sigma^2$.</p>
-<h5 id="Stationary-process-series"><a href="#Stationary-process-series" class="headerlink" title="Stationary process (series)"></a><strong>Stationary process (series)</strong></h5><p>Let ${X_s}<em>{s=0, 1, …, n}$ has the same properties as ${X</em>{t+s}}_{s=0, 1, …, n}$. (Note that we will focus on first and second order moments). iid noise is a special case of a stationary process.</p>
+<h5 id="Stationary-process-series"><a href="#Stationary-process-series" class="headerlink" title="Stationary process (series)"></a><strong>Stationary process (series)</strong></h5><p>Let $\{X_s\}_{s=0, 1, …, n}$ has the same properties as $\{X_{t+s}\}_{s=0, 1, …, n}$. (Note that we will focus on first and second order moments). iid noise is a special case of a stationary process.</p>
 <p><strong><u>Def</u></strong>. $X_t$ is weakly stationary if </p>
 <ol>
 <li>$E(X_t)=\mu_X(t)$ is independent of $t$</li>
 <li>$Cov(X_r, X_s)=E((X_r-\mu_X(r))(X_s-\mu_X(s)))=\gamma_X(r,s)$, where $\gamma_X$ is the covariance function of $X_t$</li>
 </ol>
 <p>We require that $\gamma_X(t+h, t)$ is independent of $t$ (i.e. $\gamma_X(t+h,t)=\gamma_X(h,0)=Cov(X_h, X_0)$)</p>
-<p><strong><u>Def</u></strong>. For strongly stationary, we require that the joint distribution of ${X_s}<em>{s=0, 1, …, n}$ is the same as ${X</em>{t+s}}_{s=0, 1, …, n}$</p>
+<p><strong><u>Def</u></strong>. For strongly stationary, we require that the joint distribution of $\{X_s\}_{s=0, 1, …, n}$ is the same as $\{X_{t+s}\}_{s=0, 1, …, n}$</p>
 <p>We define $\gamma_X(h,0)=\gamma_X(h)$ is the <u>auto-covariance</u> function of a stationary series of lag $h$.</p>
 <p>We define $\rho_X(h)$ is the auto-correlation function of lag $h$ and $\rho_X(h)=\frac{\gamma_X(h)}{\gamma_X(0)}=Cor(X_{t+h},X_t)$</p>
 <!--Lecture 3-->
@@ -52,12 +52,13 @@ Introduction to Time Series and Forecas"><meta name="keywords"><meta content="wi
 <h4 id="Example-1-iid-noise"><a href="#Example-1-iid-noise" class="headerlink" title="Example 1: iid noise"></a><strong>Example 1: iid noise</strong></h4><p>$X_t \overset{\text{iid}}{\sim}N(0, \sigma^2)$</p>
 <p>By definition we have $E(X_t)=0$. If $E(X^2) =\sigma^2 &lt; \infty$, then $\gamma_X(h)=Cov(X_{t+h}, X_t) = \begin{cases} \sigma^2, \text{ if } h=0 \ 0, \forall h \neq 0 \text{ by independence} \end{cases}$</p>
 <p>Therefore iid noise process is weakly stationary.</p>
-<h5 id="Example-2-White-Noise-Process"><a href="#Example-2-White-Noise-Process" class="headerlink" title="Example 2: White Noise Process"></a><strong>Example 2: White Noise Process</strong></h5><p>If ${X_t}$ is a sequence of uncorrelated random variables with $E(X_t)=0, Var(X_t)=\sigma^2 &lt; \infty, \gamma_X(h)=0 \quad \forall h\neq 0$, then we refer to it as white noise.</p>
+<h5 id="Example-2-White-Noise-Process"><a href="#Example-2-White-Noise-Process" class="headerlink" title="Example 2: White Noise Process"></a><strong>Example 2: White Noise Process</strong></h5><p>If $\{X_t\}$ is a sequence of uncorrelated random variables with $E(X_t)=0, Var(X_t)=\sigma^2 &lt; \infty, \gamma_X(h)=0 \quad \forall h\neq 0$, then we refer to it as white noise.</p>
 <p>Note that iid noise is white noise, but white noise is not necessarily iid noise.</p>
-<h5 id="Example-3"><a href="#Example-3" class="headerlink" title="Example 3"></a><strong>Example 3</strong></h5><p>Suppose ${W_t}$ and ${Z_t}$ are iid sequences, and ${W_t} \bot {Z_t}$.</p>
-<p>Let ${W_t}$ follows a Bernoulli distribution, where $Pr(W_i=0)=Pr(W_i=1)=1/2$.</p>
-<p>Let ${Z_t}$ follows a transformed Bernoulli distribution, where $Pr(W_i=-1)=Pr(W_i=1)=1/2$.</p>
+<h5 id="Example-3"><a href="#Example-3" class="headerlink" title="Example 3"></a><strong>Example 3</strong></h5><p>Suppose $\{W_t\}$ and $\{Z_t\}$ are iid sequences, and $\{W_t\} \bot \{Z_t\}$.</p>
+<p>Let $\{W_t\}$ follows a Bernoulli distribution, where $Pr(W_i=0)=Pr(W_i=1)=1/2$.</p>
+<p>Let $\{Z_t\}$ follows a transformed Bernoulli distribution, where $Pr(W_i=-1)=Pr(W_i=1)=1/2$.</p>
 <p>Set $X_t=W_t(1-W_{t-1})Z_t$, and we have the value table of $X_t$ as follows:</p>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -89,36 +90,37 @@ Introduction to Time Series and Forecas"><meta name="keywords"><meta content="wi
 </tr>
 </tbody>
 </table>
+</div>
 <p>$E(X_t)=E(W_t)E(W_{t-1})E(Z_t)=\frac{1}{2} \times \frac{1}{2} \times 0 = 0$</p>
 <p>When calculating covariance, there are two cases:</p>
 <ol>
 <li>$h=0$</li>
 </ol>
-<p>$Cov(X_t,X_{t+h})=E(X_t X_{t+h})=E(W_t^2(1-W_{t-1})^2Z_t^2)\=E(W_t^2)E((1-W_{t-1})^2)E(Z_t^2)=\frac{1}{2} \times \frac{1}{2} \times 1 = \frac{1}{4}$</p>
-<ol start="2">
+<p>$Cov(X_t,X_{t+h})=E(X_t X_{t+h})=E(W_t^2(1-W_{t-1})^2Z_t^2)\\=E(W_t^2)E((1-W_{t-1})^2)E(Z_t^2)=\frac{1}{2} \times \frac{1}{2} \times 1 = \frac{1}{4}$</p>
+<ol>
 <li>$h\neq 0$</li>
 </ol>
-<p>$Cov(X_t,X_{t+h})=E(X_t X_{t+h})=E(W_t(1-W_{t-1})Z_tW_{t+h}(1-W_{t+h-1})Z_{t+h})\=E(W_t)E((1-W_{t-1}))E(Z_t)E(W_{t+h})E((1-W_{t+h-1}))E(Z_{t+h})=0$</p>
+<p>$Cov(X_t,X_{t+h})=E(X_t X_{t+h})=E(W_t(1-W_{t-1})Z_tW_{t+h}(1-W_{t+h-1})Z_{t+h})\\=E(W_t)E((1-W_{t-1}))E(Z_t)E(W_{t+h})E((1-W_{t+h-1}))E(Z_{t+h})=0$</p>
 <p>Therefore, $X_t$ is a white noise process.</p>
 <p>Note that $X_t$ and $X_{t-1}$ are dependent but not correlated.</p>
-<h5 id="Example-4-Random-walk"><a href="#Example-4-Random-walk" class="headerlink" title="Example 4: Random walk"></a><strong>Example 4: Random walk</strong></h5><p>Let ${X_t}$ be iid noise, and $S_t = X_1 + … + X_t = \sum^t_{i=1} X_i$.</p>
+<h5 id="Example-4-Random-walk"><a href="#Example-4-Random-walk" class="headerlink" title="Example 4: Random walk"></a><strong>Example 4: Random walk</strong></h5><p>Let $\{X_t\}$ be iid noise, and $S_t = X_1 + … + X_t = \sum^t_{i=1} X_i$.</p>
 <p>We have $E(S_t)=0$, and $Var(S_t)=t\sigma^2$.</p>
-<p>$Cov(S_{t+h}, S_t)=Cov(S_t+[X_{t+1}+…+X_{t+h}],S_t) \= Cov(S_t,S_t) + Cov(X_{t+1}+…+X_{t+h},S_t) = t\sigma^2 + 0$</p>
+<p>$Cov(S_{t+h}, S_t)=Cov(S_t+[X_{t+1}+…+X_{t+h}],S_t) \\= Cov(S_t,S_t) + Cov(X_{t+1}+…+X_{t+h},S_t) = t\sigma^2 + 0$</p>
 <p>Therefore, random walk is not stationary.</p>
 <h5 id="Example-5-First-order-moving-average-process-MA-1"><a href="#Example-5-First-order-moving-average-process-MA-1" class="headerlink" title="Example 5: First order moving average process (MA(1))"></a><strong>Example 5: First order moving average process (MA(1))</strong></h5><p>Let $Z_t \sim WN(0, \sigma^2)$. Let $X_t=Z_t + \theta Z_{t-1},\quad  t=0,\pm1,\pm2,…$ where $\theta$ is a real-valued constant.</p>
 <p>(Graphical representation will be added later)</p>
 <p>We have $E(X_t)=E(Z_t) + \theta E(Z_{t-1}) = 0$.</p>
-<p>$Var(X_t) = E(X_t^2) = E((Z_t + \theta Z_{t-1})^2) \=E(Z_t^2) + 2\theta E(Z_tZ_{t-1}) + \theta^2E(Z_{t-1}^2) = (1+\theta^2)\sigma^2$</p>
+<p>$Var(X_t) = E(X_t^2) = E((Z_t + \theta Z_{t-1})^2) \\=E(Z_t^2) + 2\theta E(Z_tZ_{t-1}) + \theta^2E(Z_{t-1}^2) = (1+\theta^2)\sigma^2$</p>
 <p>When calculating covariance, there are three cases:</p>
 <ol>
 <li>$h=0$</li>
 </ol>
 <p>$\gamma_X(t+h,t)=E(X_{t+h}X_t)=E(X_t^2)=(1+\theta^2)\sigma^2$</p>
-<ol start="2">
+<ol>
 <li>$h=\pm1$</li>
 </ol>
-<p>$\gamma_X(t+h,t)=E(X_{t+h}X_t)=E((Z_{t+1}+\theta Z_t)(Z_t+\theta Z_{t-1}))\=E(Z_{t+1}Z_t)+\theta E(Z_t^2)+\theta E(Z_{t+1}Z_{t-1})+\theta^2 E(Z_tZ_{t-1})=\theta\sigma^2$</p>
-<ol start="3">
+<p>$\gamma_X(t+h,t)=E(X_{t+h}X_t)=E((Z_{t+1}+\theta Z_t)(Z_t+\theta Z_{t-1}))\\=E(Z_{t+1}Z_t)+\theta E(Z_t^2)+\theta E(Z_{t+1}Z_{t-1})+\theta^2 E(Z_tZ_{t-1})=\theta\sigma^2$</p>
+<ol>
 <li>$|h|&gt;1$</li>
 </ol>
 <p>$\gamma_X(t+h,t)=E(X_{t+h}X_t)=E((Z_{t+h}+\theta Z_{t+h-1})(Z_t+\theta Z_{t-1}))=0$ becase $t\neq t-1 \neq t+h \neq t+h-1$ if $|h|&gt;1$</p>
