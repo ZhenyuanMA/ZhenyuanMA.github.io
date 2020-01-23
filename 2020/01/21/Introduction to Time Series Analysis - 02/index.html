@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Zhenyuan Ma">
+
+
+
+    <meta name="description" content="Master student in McGill University 
+">
+
+
+
+<title>Introduction to Time Series Analysis - 02 | Zhenyuan Ma</title>
+
+
+
+    <link rel="icon" href="/favicon.png">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+            <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Zhenyuan&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                    <a class="menu-item" href="/links">Links</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Zhenyuan&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                    <a class="menu-item" href="/links">Links</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Introduction to Time Series Analysis - 02</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Zhenyuan Ma</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">2020 01 21&nbsp;&nbsp;13:49:33</a>
+                        </span>
+                    
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="introduction-to-time-series-analysis---02">Introduction to Time Series Analysis - 02</h2>
+<p>This note is for course MATH 545 at McGill University.</p>
+<p>We recommend an R package named <a href="https://www.r-project.org/nosvn/pandoc/forecast.html" target="_blank" rel="noopener">"forecast"</a>.</p>
+<hr>
+<!--Lecture 4-->
+<h5 id="first-order-autoregressive-process-ar1"><strong>First order Autoregressive process AR(1)</strong></h5>
+<p>Assume <span class="math inline">\(\{X_t\}\)</span> is a sequence of random variables that is stationary, satisfying <span class="math inline">\(X_t = \phi X_{t-1} + Z_t\)</span>, for <span class="math inline">\(t=0, \pm 1, \pm 2, ...\)</span>, where <span class="math inline">\(\{Z_t\}\)</span> is a White Noise process of <span class="math inline">\(WN(0, \sigma^2)\)</span>, and <span class="math inline">\(\{Z_t\}\)</span> is uncorrelated with <span class="math inline">\(\{X_t\}\)</span> for <span class="math inline">\(\forall s&lt;t\)</span>, and <span class="math inline">\(\phi\)</span> is a real-valued constant.</p>
+<p>(Graphical representation will be added later)</p>
+<p>We have <span class="math inline">\(E(X_t) = \phi E(X_{t-1}) + E(Z_t)=\phi \mu_X + 0\)</span>.</p>
+<p>By assuming <span class="math inline">\(\{X_t\}\)</span> is stationary, we need <span class="math inline">\(\mu_X = 0\)</span> (or <span class="math inline">\(\phi=1\)</span> or <span class="math inline">\(\phi=0\)</span>)</p>
+<p>By construction, <span class="math inline">\((X_{t-h})X_t = (X_{t-h})(X_{t-1} + Z_t)\)</span></p>
+<p>Take expectation, <span class="math inline">\(E(X_{t-h}X_t) = E(X_{t-h}(X_{t-1} + Z_t))\)</span></p>
+<p><span class="math inline">\(E(X_{t-h}X_t)=\phi E(X_{t-h}X_{t-1})+E(X_{t-h}Z_{t})=\phi E(X_{t-h}X_{t-1})\)</span></p>
+<p>Then we have <span class="math inline">\(\gamma_X(h) = \phi \gamma_X(h-1)=\phi[\phi \gamma_X(h-2)]=...=\phi^h \gamma_X(0)\)</span>, and <span class="math inline">\(\rho_X(h) = \frac{\gamma_X(h)}{\gamma_X(0)}=\phi^h\)</span>.</p>
+<p>By symmetry and stationary, we have <span class="math inline">\(\rho_X(h)=\phi^{|h|}\)</span></p>
+<p><span class="math inline">\(\gamma_X(0)=Cov(X_t, X_t) \\= E((\phi X_{t-1} + Z_t)(\phi X_{t-1} + Z_t))\\=\phi^2 E(X_{t-1}^2) + E(Z_t^2) \\= \phi^2 \gamma_X(0) + \sigma^2\)</span> (as <span class="math inline">\(X_{t-1}\)</span> and <span class="math inline">\(Z_t\)</span> are not correlated by definition)</p>
+<p>Therefore, we have <span class="math inline">\(\gamma_X(0) = \frac{\sigma^2}{1-\phi^2}\)</span> with <span class="math inline">\(|\phi|&lt;1\)</span>.</p>
+<h5 id="estimating-autocorrelation"><strong>Estimating Autocorrelation</strong></h5>
+<p>Let <span class="math inline">\(X_1, ..., X_n\)</span> be <u>observed values</u> for a stationary sequence, and sample mean <span class="math inline">\(\bar{X}=\frac{1}{n}\sum^n_{i=1}X_i\)</span>.</p>
+<p>We have covariance <span class="math inline">\(Cov(V,W)=E[(V-E(V))(W-E(W))]\)</span>, and the unbiased estimator of covariance as <span class="math inline">\(\hat{Cov}(V,W)=\frac{\sum_{i=1}^n(V_i-\bar{V})(W_i-\bar{W})}{n-1}\)</span></p>
+<p><span class="math inline">\(\gamma_X(h)=Cov(X_{t+h}, X_t)\)</span></p>
+<p><span class="math inline">\(\hat{\gamma}_X(h)=\frac{1}{n}\sum_{t=1}^{n-|h|}(X_{t+|h|}-\bar{X})(X_t-\bar{X})\)</span> for <span class="math inline">\(-n&lt;h&lt;n\)</span></p>
+<p>The sample autocorrelation <span class="math inline">\(\hat{\rho}(h)=\frac{\hat{\gamma}_X(h)}{\gamma_X(0)}\)</span>, where <span class="math inline">\(\gamma_X(0)=\frac{1}{n}\sum^n_{t=1}(X_t-\bar{X})^2\)</span>.</p>
+<h5 id="classical-decomposition-model"><strong>Classical Decomposition Model</strong></h5>
+<p><span class="math inline">\(X_t = m_t + S_t + Y_t\)</span></p>
+<p><span class="math inline">\(m_t\)</span> here shows "trend", <span class="math inline">\(S_t\)</span> shows seasonal patterns, and <span class="math inline">\(Y_t\)</span> is random "noise" component (so far we have 4 choices of noise: iid, white noise, MA(1), and AR(1))</p>
+<p>We can remove <span class="math inline">\(m_t\)</span> and <span class="math inline">\(S_t\)</span> to estimate <span class="math inline">\(Y_t\)</span>, and we have two ways:</p>
+<ol type="1">
+<li>estimate trend/seasonal using a "model" (filter)</li>
+<li>differencing <span class="math inline">\(\{X_t\}\)</span> to estimate trend and seasonality (filter)</li>
+</ol>
+<h5 id="estimate-trend"><strong>Estimate Trend</strong></h5>
+<p><span class="math inline">\(X_t=m_t+Y_t, \quad t=1, ..., n\)</span>, and <span class="math inline">\(E(Y_t)=0\)</span></p>
+<p>We can use Nonparametric methods, which is flexible and with fewer assumptions, but is subjective</p>
+<ol type="1">
+<li>Finite Moving Average Filter (to capture local trend)</li>
+</ol>
+<p><span class="math inline">\(W_t=\frac{1}{2q+1}\sum_{j=-q}^{q}X_{t-j} \\=\frac{1}{2q+1}\sum_{j=-q}^{q}(m_{t-j}+Y_{t-j}) \\=\frac{1}{2q+1}[\sum_{j=-q}^{q}m_{t-j}] + \frac{1}{2q+1}[\sum_{j=-q}^{q}Y_{t-j}] \\ \approx \frac{1}{2q+1}\sum_{j=-q}^{q}m_{t-j}\)</span> where <span class="math inline">\(q\)</span> is a positive integer</p>
+<p>Moving Average is a linear filter where <span class="math inline">\(a_j=\begin{cases}\frac{1}{2q+1}, \text{for} |j| \leq q \\ 0, \text{otherwise}\end{cases}\)</span></p>
+<p>Our goal is <span class="math inline">\(X_t-\hat{m}_t = \hat{Y}_t\)</span></p>
+<!--Lecture 5-->
+<ol start="2" type="1">
+<li>Exponential smoothing</li>
+</ol>
+<p><span class="math inline">\(\hat{m}_t=\alpha X_t + (1-\alpha)\hat{m}_{t-1}\)</span></p>
+<p>For <span class="math inline">\(t=1\)</span>, we have <span class="math inline">\(\hat{m}_1=X_1\)</span>. For <span class="math inline">\(t\geq 2\)</span>, <span class="math inline">\(\hat{m}_t=\sum_{j=0}^{t-2} \alpha(1-\alpha)^j X_{t-j} + (1-\alpha)^{t-1}X_1\)</span>.</p>
+<ol start="3" type="1">
+<li>Parametric smoothing (linear, polynomial, basic function b-spline)</li>
+<li>High-frequency smoothing using Fourier Series</li>
+</ol>
+<h5 id="differencingfor-trend"><strong>Differencing（for trend)</strong></h5>
+<p>We define the lag-1 difference as <span class="math inline">\(\nabla X_t = X_t - X_{t-1} = (1-B)X_t\)</span>, where <span class="math inline">\(B\)</span> is known as the backwards shift operator with <span class="math inline">\(BX_t = X_{t-1}\)</span></p>
+<p>We can generalize <span class="math inline">\(\nabla\)</span> and <span class="math inline">\(B\)</span> to general lags by taking powers:</p>
+<p><span class="math inline">\(B^j X_t = B^{j-1} (BX_t) = B^{j-1}X_{t-1} = ... = X_{t-j}\)</span></p>
+<p><span class="math inline">\(X_t - X_{t-j} = (1-B^j)X_t\)</span></p>
+<p>As <span class="math inline">\(\nabla^jX_t = \nabla(\nabla^{j-1}X_t)\)</span>, we have:</p>
+<p><span class="math inline">\(\nabla^2X_t = \nabla(\nabla X_t) = \nabla((1-B)X_t) = (1_B)(1-B)X_t \\=(1-2B+B^2)X_t = X_t -2BX_t + B^2X_t \\=X_t-2X_{t-1}+X_{t-2}\\=(X_t-X_{t-1}) - (X_{t-1}-X_{t-2})\)</span></p>
+<p>Let <span class="math inline">\(X_t = m_t+Y_t\)</span>, where <span class="math inline">\(m_t = a+bt\)</span>, we have</p>
+<p><span class="math inline">\(\nabla X_t = \nabla(m_t+Y_t) = \nabla m_t + \nabla Y_t \\=m_t-m_{t-1} + Y_t -Y_{t-1} = (a+bt) + (a+b(t-1)) + Y_t-Y_{t-1} \\=b+Y_t-Y_{t-1}\)</span></p>
+<p>Therefore we could say <span class="math inline">\(\nabla X_t\)</span> will be stationary if <span class="math inline">\(Y_t-Y_{t-1}\)</span> is stationary.</p>
+<!--Lecture 6-->
+<h5 id="estimate-seasonal-component"><strong>Estimate seasonal component</strong></h5>
+<p>An example of <span class="math inline">\(d=4\)</span></p>
+<table>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(k=1\)</span></th>
+<th><span class="math inline">\(k=2\)</span></th>
+<th><span class="math inline">\(k=3\)</span></th>
+<th><span class="math inline">\(k=4\)</span></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(\tilde{x}_{1}\)</span></td>
+<td><span class="math inline">\(\tilde{x}_{2}\)</span></td>
+<td><span class="math inline">\(\tilde{x}_{3}\)</span></td>
+<td><span class="math inline">\(\tilde{x}_{4}\)</span></td>
+<td><span class="math inline">\(\rightarrow j=0\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\tilde{x}_{5}\)</span></td>
+<td><span class="math inline">\(\tilde{x}_{6}\)</span></td>
+<td><span class="math inline">\(\tilde{x}_{7}\)</span></td>
+<td><span class="math inline">\(\tilde{x}_{8}\)</span></td>
+<td><span class="math inline">\(\rightarrow j=1\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\tilde{x}_{9}\)</span></td>
+<td><span class="math inline">\(\tilde{x}_{10}\)</span></td>
+<td><span class="math inline">\(\tilde{x}_{11}\)</span></td>
+<td><span class="math inline">\(\tilde{x}_{12}\)</span></td>
+<td><span class="math inline">\(\rightarrow j=2\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\downarrow\)</span></td>
+<td><span class="math inline">\(\downarrow\)</span></td>
+<td><span class="math inline">\(\downarrow\)</span></td>
+<td><span class="math inline">\(\downarrow\)</span></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(S_1\)</span></td>
+<td><span class="math inline">\(S_2\)</span></td>
+<td><span class="math inline">\(S_3\)</span></td>
+<td><span class="math inline">\(S_4\)</span></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p><span class="math inline">\(W_k=\sum_{j=1}^{t/d-1}(X_{k+jd} - \hat{m}_{k+jd})\)</span></p>
+<p><span class="math inline">\(\hat{S}_k = W_k - \frac{1}{d}\sum_{i=1}^d W_i\)</span></p>
+<p>Let <span class="math inline">\(d_t = X_t - \hat{S}_t\)</span> as deseasonal data, we can reestimate the trend from <span class="math inline">\(d_t\)</span> and <span class="math inline">\(\tilde{m}_t\)</span> by <span class="math inline">\(\hat{Y}_t = X_t - \hat{S}_t - \tilde{m}_t\)</span></p>
+<h5 id="differencing-for-seasonal"><strong>Differencing (for seasonal)</strong></h5>
+<p><span class="math inline">\(\nabla_d X_t = X_t - X_{t-d} = (1-B^d)X_t\)</span></p>
+<p>Apply this to <span class="math inline">\(X_t=m_t+S_t+Y_t\)</span>, we have:</p>
+<p><span class="math inline">\(\nabla_d X_t = \nabla_d(m_t + S_t+Y_t) \\=(m_t - m_{t-d}) + (S_t - S_{t-d}) + (Y_t - Y_{t-d})\)</span></p>
+<p>Therefore <span class="math inline">\(\tilde{X}_t=(m_t - m_{t-d}) + (Y_t - Y_{t-d})\)</span></p>
+<p>If <span class="math inline">\(m_t=a+bt\)</span>, <span class="math inline">\(\tilde{X}_t = ((a+bt)-(a+b(t-d))) + (Y_t-Y_{t-d}) = bd+ (Y_t-Y_{t-d})\)</span></p>
+<p>If <span class="math inline">\(Y_{t} \stackrel{\text { iid }}{\sim}\left(0, \sigma^{2}\right)\)</span>, we have <span class="math inline">\(\hat{p}(h) \stackrel{\text { · }}{\sim} N\left(0, \frac{1}{n}\right)\)</span>. (No proof)</p>
+<p>(Recall that <span class="math inline">\(\hat{p}(h)=\frac{\hat{\gamma}(h)}{\hat{\gamma}(0)} = \frac{\sum_{i=1}^{n-|h|} (X_i-\bar{X})(X_{i+n}-\bar{X})/n}{\sum_{i=1}^n (X_i-\bar{X})^2/n}\)</span>)</p>
+
+        </div>
+
+        
+            <section class="post-copyright">
+                
+                    <p class="copyright-item">
+                        <span>Author:</span>
+                        <span>Zhenyuan Ma</span>
+                    </p>
+                
+                
+                
+                
+
+            </section>
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tags/time-series-model/"># time series model</a>
+                    
+                        <a href="/tags/mathematics/"># mathematics</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2020/01/18/Introduction to Time Series Analysis - 01/">Introduction to Time Series Analysis - 01</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Zhenyuan Ma | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>
