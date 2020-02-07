@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="default">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Zhenyuan Ma">
+
+
+
+    <meta name="description" content="Master student in McGill University 
+">
+
+
+
+<title>Introduction to Time Series Analysis - 04 | Zhenyuan Ma</title>
+
+
+
+    <link rel="icon" href="/favicon.png">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+            <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Zhenyuan&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                    <a class="menu-item" href="/links">Link</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Zhenyuan&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                    <a class="menu-item" href="/links">Link</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Introduction to Time Series Analysis - 04</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Zhenyuan Ma</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">2020 02 07&nbsp;&nbsp;14:29:11</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/category/Course-Note/">Course Note</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="introduction-to-time-series-analysis---04">Introduction to Time Series Analysis - 04</h2>
+<p>This note is for course MATH 545 at McGill University.</p>
+<hr>
+<!--Lecture 10-->
+<h5 id="estimation-of-mean-mu-and-auto-covariance-function-rhoh-for-stationary-x_t-when-ex_tmu"><strong>Estimation of mean <span class="math inline">\(\mu\)</span> and auto-covariance function <span class="math inline">\(\rho(h)\)</span> for stationary <span class="math inline">\(\{X_t\}\)</span> when <span class="math inline">\(E[X_t]=\mu\)</span></strong></h5>
+<p><span class="math inline">\(\hat{\mu}=\bar{X}_{n}=\frac{X_{1}+\cdots+X_{n}}{n}\)</span></p>
+<p><span class="math inline">\(E\left[\bar{X}_{n}\right]=\frac{E\left[X_{1}\right]+\cdots+E\left[X_{n}\right]}{n}=\mu\)</span></p>
+<p><span class="math inline">\(E\left[\left(\bar{X}_{n}-\mu\right)^{2}\right]=\operatorname{MSE}\left(\bar{X}_{n}\right)=\operatorname{Var}\left(\bar{X}_{n}\right)\)</span></p>
+<p><span class="math inline">\(\begin{aligned} \operatorname{Var}\left(\bar{X}_{n}\right) &amp;=\operatorname{Var}\left(\frac{1}{n}\left[X_{1}+\cdots +X_{n}\right]\right) \\ &amp;=\frac{1}{n^{2}} \text{Var} \left(X_{1}+\cdots+X_{n}\right) \\ &amp;=\frac{1}{n^{2}} \sum_{i=1}^{n} \sum_{j=1}^{n}\text{Cov}\left(X_{i}, X_{j}\right) \\ &amp;=\frac{1}{h^{2}} \sum_{i=1}^{n} \sum_{j=1}^{n} \gamma(i-j) \\ &amp;=\frac{1}{n^{2}} \sum_{h=-n}^{n}(n-|h|) \gamma(h) \\ &amp;=\frac{1}{n} \sum_{h=-n}^{n}\left(1-\frac{|h|}{n}\right) \gamma(h) \end{aligned}\)</span></p>
+<p>(Note that here <span class="math inline">\((n-|h|)\)</span> is the number of possible observed lags. And we have <span class="math inline">\(0\leq |i-j| \leq n\)</span> which means <span class="math inline">\(n+1\)</span> values of <span class="math inline">\(|i-j|\)</span>)</p>
+<p>If <span class="math inline">\(\gamma(h) \rightarrow 0\)</span> as <span class="math inline">\(n \rightarrow \infty\)</span>, then <span class="math inline">\(\operatorname{Var}\left(\bar{X}_{n}\right)=\operatorname{MSE}\left(\bar{X}_{n}\right) \rightarrow\)</span> as <span class="math inline">\(n \rightarrow \infty\)</span></p>
+<p>If <span class="math inline">\(\sum_{h=-\infty}^{\infty}|\gamma(h)|&lt;\infty\)</span>, then <span class="math inline">\(\lim _{n \rightarrow \infty} n \operatorname{Var}\left(\bar{X}_{n}\right)=\sum_{n=-\infty}^{\infty}|\gamma(h)|\)</span></p>
+<p>If <span class="math inline">\(\{X_t\}\)</span> are also Gaussian, then <span class="math inline">\(\bar{X}_{n} \sim N\left(\mu, \frac{1}{n} \sum_{|h|&lt;\infty}\left(1-\frac{|h|}{n}\right) \gamma(h)\right)\)</span></p>
+<p>To do testing and identical estimation <span class="math inline">\(\bar{X}_{n} \pm Z_{Q / 2} \frac{\sqrt{\Gamma}}{\sqrt{n}}\)</span>, where <span class="math inline">\(\Gamma = \sum_{|h| &lt; \infty} \gamma(h)\)</span></p>
+<p>Plugin <span class="math inline">\(\hat{\Gamma}=\sum_{|h|}\hat{\gamma}(h)\)</span></p>
+<p>Example: AR(1) process</p>
+<p>Let <span class="math inline">\(\{X_t\}\)</span> be defined by <span class="math inline">\(X_t - \mu = \phi(X_{t-1}-\mu) + Z_t\)</span> where <span class="math inline">\(|\phi| &lt; 1\)</span> and <span class="math inline">\(\{Z_t\}\sim WN(0, \sigma^2)\)</span></p>
+
+        </div>
+
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tag/mathematics/"># mathematics</a>
+                    
+                        <a href="/tag/time-series/"># time-series</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2020/01/28/Introduction to Time Series Analysis - 03/">Introduction to Time Series Analysis - 03</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Zhenyuan Ma | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>

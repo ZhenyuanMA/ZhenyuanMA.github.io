@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="default">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Zhenyuan Ma">
+
+
+
+    <meta name="description" content="Master student in McGill University 
+">
+
+
+
+<title>Introduction to Time Series Analysis - 03 | Zhenyuan Ma</title>
+
+
+
+    <link rel="icon" href="/favicon.png">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+            <!-- MathJax配置，可通过单美元符号书写行内公式等 -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+    "HTML-CSS": {
+        preferredFont: "TeX",
+        availableFonts: ["STIX","TeX"],
+        linebreaks: { automatic:true },
+        EqnChunk: (MathJax.Hub.Browser.isMobile ? 10 : 50)
+    },
+    tex2jax: {
+        inlineMath: [ ["$", "$"], ["\\(","\\)"] ],
+        processEscapes: true,
+        ignoreClass: "tex2jax_ignore|dno",
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    },
+    TeX: {
+        equationNumbers: { autoNumber: "AMS" },
+        noUndefined: { attributes: { mathcolor: "red", mathbackground: "#FFEEEE", mathsize: "90%" } },
+        Macros: { href: "{}" }
+    },
+    messageStyle: "none"
+    });
+</script>
+<!-- 给MathJax元素添加has-jax class -->
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+<!-- 通过连接CDN加载MathJax的js代码 -->
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Zhenyuan&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                    <a class="menu-item" href="/links">Link</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Zhenyuan&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                    <a class="menu-item" href="/links">Link</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Introduction to Time Series Analysis - 03</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Zhenyuan Ma</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">2020 01 28&nbsp;&nbsp;14:09:08</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/category/Course-Note/">Course Note</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="introduction-to-time-series-analysis---03">Introduction to Time Series Analysis - 03</h2>
+<p>This note is for course MATH 545 at McGill University.</p>
+<hr>
+<!--Lecture 7-->
+<h5 id="test-for-weak-stationarity"><strong>Test for weak stationarity</strong></h5>
+<ol type="1">
+<li><p>sample autocorrelation (for white noise only)</p>
+<p>problem: so many <span class="math inline">\(h\)</span>'s</p></li>
+<li><p>portmanteau test</p>
+<p><span class="math inline">\(Q = \sum^h_{j=1}\hat{\rho}^2(j)\)</span></p>
+<p>If <span class="math inline">\(y_{t} \stackrel{\text { iid }}{\sim} N(0, \sigma^{2})\)</span>, then <span class="math inline">\(Q \sim \chi^2_h\)</span></p>
+<p><span class="math inline">\(Q_{LB}=n(n+2)\sum^h_{j=1}\frac{\hat{\rho}^2(j)}{n-j}\)</span></p></li>
+<li><p>Turing points test</p>
+<p><span class="math inline">\(y_i\)</span> is a turing point if <span class="math inline">\(y_i &lt; y_{i-1}, y_i&lt;y_{i+1}\)</span> or <span class="math inline">\(y_i &gt; y_{i-1}, y_i&gt;y_{i+1}\)</span></p>
+<p>Let <span class="math inline">\(y_i\)</span> be a turing point. For iid sequences, let <span class="math inline">\(T\)</span> be the size of turing points.</p>
+<p>What's the probability of turing point after <span class="math inline">\(t\)</span>? ANS: 2/3</p>
+<p>So <span class="math inline">\(E(T)=(n-2)\frac{2}{3}\)</span>, <span class="math inline">\(V(T)=\frac{16n-29}{90}\)</span></p>
+<p><span class="math inline">\(\frac{T-E(T)}{\sqrt{V(T)}} \sim N(0, 1)\)</span> for large <span class="math inline">\(n\)</span></p></li>
+<li><p>sign test: count <span class="math inline">\(y_{i+1} - y_i &gt;0\)</span></p>
+<p>Exact signal hypothesis test for <span class="math inline">\(H_0: p=0.5\)</span></p></li>
+<li><p>Rank tests (compare ranks of <span class="math inline">\(y_t\)</span> with <span class="math inline">\(t\)</span>)</p></li>
+</ol>
+<p>(Note: there may be 20 minutes note that I did not take)</p>
+<!--Lecture 8-->
+<h5 id="prediction-mx_nex_nhx_n"><strong>Prediction: <span class="math inline">\(m(X_n)=E(X_{n+h}|X_n)\)</span></strong></h5>
+<p>Show that <span class="math inline">\(E(X_{n+h}|X_n)\)</span> is the unique minimizer of <span class="math inline">\(E[(X_{n+h}-m(X_n))^2]\)</span>.</p>
+<p>Assume <span class="math inline">\(\hat{m}(X_n)\)</span> minimizes <span class="math inline">\(E[(X_{n+h}-m(X_n))^2]\)</span>, then <span class="math inline">\(E[(X_{n+h}-\hat{m}(X_n))^2]\)</span> is the minimum value of MSE.</p>
+<p><span class="math inline">\(E[(X_{n+h}-\hat{m}(X_n))^2]\\=E\left[\left(X_{n+1}-E\left(X_{n+h} | X_{n}\right)+E\left(X_{n+h} | X_{n}\right)-\hat{m}\left(X_{n}\right)\right)^{2}\right]\\=\left.E\left[\left(X_{n+h}-E\left(X_{n+h} | X_{n}\right)\right)^{2}\right]+2 E\left[\left(X_{n+h}-E\left(X_{n+h}\right| X_{n}\right)\right)\left(E\left(X_{n+h} | X_{n}\right)-\hat{m}\left(X_{n}\right)\right)\right]+\left.E\left[E\left(X_{n+h} | X_{n}\right)-\hat{m}\left(X_{n}\right)\right)^{2}\right]\)</span></p>
+<p>Focus on the second term:</p>
+<p><span class="math inline">\(2E[(X_{n+h}-E(X_{n+h}| X_{n}))(E(X_{n+h} | X_{n})-\hat{m}(X_{n}))]\\=2 E_{X_{n}} E_{X_{n+h} | X_{n}}\left[\left(X_{n+h}-E\left(X_{n+h} | X_{n}\right)\right)\left(E\left(X_{n+h} | X_{n}\right)-\hat{m}\left(X_{n}\right)\right) | X_{n}\right]\\=2 E_{x_{n}}\left[\left(E\left(X_{n+h} | X_{n}\right)-m\left(X_{n}\right)\right)\right] E_{X_{n+h} | X_{n}}\left[\left(X_{n+h}-E\left(X_{n+h} | X_{n}\right)\right)\right]\\=0\)</span></p>
+<p>So <span class="math inline">\(E[(X_{n+h}-\hat{m}(X_n))^2]=\left.E\left[\left(X_{n+h}-E\left(X_{n+h} | X_{n}\right)\right)^{2}\right]+E[E\left(X_{n+h} | X_{n}\right)-\hat{m}\left(X_{n}\right)\right)^{2}]\)</span></p>
+<p>and this equation is greater than 0 unless <span class="math inline">\(E\left(X_{n+h} | X_{n}\right)=\hat{m}\left(X_{n}\right)\)</span> and then this equation equal to 0.</p>
+<p>But this obviously extends to conditioning on <span class="math inline">\((X_1, X_2, ..., X_n)\)</span></p>
+<p>Choose a model for <span class="math inline">\(E(X_{n+h}|X_n)\)</span> and we always start from <u>linear</u></p>
+<p>What is the best linear predictor for <span class="math inline">\(X_{n+h}\)</span> that is a function of <span class="math inline">\(X_n\)</span>?</p>
+<p><span class="math inline">\(\begin{array}{l}{\quad E\left[\left(X_{n+h}-\left(a+b X_{n}\right)\right)^{2}\right]} \\ {=E\left(X_{n+h}^{2}\right)-2 E\left[X_{n+h}\left(a+b X_{n}\right)\right]+E\left[\left(a+b X_{n}\right)^{2}\right]} \\ {=E\left(X_{n+1}^{2}\right)-2\left(a E\left(X_{n+h}\right)+b E\left(X_{n+h} X_{n}\right)\right)+a^{2}+2 ab E\left(X_{n}\right)+b^{2} E\left(X_{n}^{2}\right)}\end{array}\)</span></p>
+<p>We take the derivative</p>
+<p><span class="math inline">\(\frac{\partial}{\partial a}=-2 E\left(X_{n+h}\right)+2 a+2 b E\left(X_{n}\right)\)</span></p>
+<p><span class="math inline">\(\frac{\partial}{\partial b}=-2 E\left(X_{n+h} X_{n}\right)+2 a E\left(X_{n}\right)+2 b E\left(X_{n}^{2}\right)\)</span></p>
+<p>Set two derivatives equal to 0, we have</p>
+<p><span class="math inline">\(\hat{a}=E\left(X_{n+h}\right)-\hat{b} E\left(X_{n}\right)=\mu(n+h)-\hat{b}\mu(n)\)</span></p>
+<p>Adding the equation above to this equation: <span class="math inline">\(-E\left(X_{n+h} X_{n}\right)+\hat{a} E\left(X_{n}\right)+\hat{b} E\left(X_{n}^{2}\right)=0\)</span></p>
+<p>We have:</p>
+<p><span class="math inline">\(-E\left(X_{n+n} X_{n}\right)+(\mu(n+h)-\hat{b} \mu(n)) E\left(X_{n}\right)+\hat{b} E\left(X_{n}^{2}\right)=0\)</span></p>
+<p>and thus <span class="math inline">\(\hat{b}=\frac{E\left(X_{n+h} X_{n}\right)-\mu(n+h) \mu(n)}{E\left(X_{n}^{2}\right)-(\mu(n))^{2}}=\frac{\operatorname{Cov}\left(X_{n+h}, X_{n}\right)}{\operatorname{Var}\left(X_{n}\right)}\)</span></p>
+<p>So <span class="math inline">\(\hat{a}=\mu(n+h)-\frac{\operatorname{cov}\left(X_{n+h}, X_{n}\right)}{\operatorname{Var}\left(X_{n}\right)} \mu(n)\)</span></p>
+<p>and <span class="math inline">\(\hat{X}_{n+h}=\hat{a}+\hat{b} X_{n}=\mu(n+h)+\frac{\operatorname{Cov}\left(X_{n+h}, X_{n}\right)}{\operatorname{Var}\left(X_{n}\right)}\left(X_{n}-\mu(n)\right)\)</span></p>
+<p>If <span class="math inline">\(\{X_t\}\)</span> is stationary, then <span class="math inline">\(\hat{X}_{n+h}=\mu+\frac{\gamma(h)}{\gamma(0)}\left(X_{n}-\mu\right)=\rho(h) X_{n}+(1-\rho(h))\mu\)</span></p>
+<h5 id="properties-of-gammah"><strong>Properties of <span class="math inline">\(\gamma(h)\)</span></strong></h5>
+<ol type="1">
+<li><span class="math inline">\(\gamma(0)=0\)</span> (variance)</li>
+<li><span class="math inline">\(|\gamma(h)| \leq \gamma(0)\)</span> (Cauchy-Schwarz inequality: <span class="math inline">\(|&lt;u, v&gt;|^{2} \leq\langle u, u\rangle \cdot\langle v \cdot v\rangle\)</span>)</li>
+<li><span class="math inline">\(\gamma(h)\)</span> is even: <span class="math inline">\(\gamma(h)=\gamma(-h)\)</span></li>
+<li><span class="math inline">\(\gamma(h)\)</span> is non-negative definite: <span class="math inline">\(\sum_{i=1}^{n} \sum_{j=1}^{n} a_{i} \gamma(i-j) a_{j} \geqslant 0 \quad \forall n \in Z^{+}, \quad a \in R^{n}\)</span></li>
+</ol>
+<p>Even stronger property: let <span class="math inline">\(\gamma(h)\)</span> be a function defined on <span class="math inline">\(h \in Z\)</span>, <span class="math inline">\(\gamma(h)\)</span> is non-negative and even <span class="math inline">\(\Leftrightarrow\)</span> It is the auto-covariance function of some stationary sequence</p>
+<h5 id="strictly-stationary-series"><strong>Strictly stationary series</strong></h5>
+<p><u><strong>Def</strong></u>. <span class="math inline">\(\{X_t\}\)</span> is strictly stationary if <span class="math inline">\(\left(x_{1}, \ldots, x_{n}\right) \stackrel{d}{=} \left(x_{1}+n_{1}, \ldots, x_{n+1}\right) \quad \forall n \text { and } n\)</span></p>
+<p><strong><u>Properties</u></strong></p>
+<ol type="1">
+<li>all elements of <span class="math inline">\(\{X_t\}\)</span> are identically distributed</li>
+<li><span class="math inline">\((X_t, X_{t+h}) \stackrel{d}{=} (X_1, X_{1+h})\)</span></li>
+<li>If <span class="math inline">\(E(X_t^2) &lt; \infty\)</span>, then <span class="math inline">\(\{X_t\}\)</span> is <u>weakly</u> stationary</li>
+<li>weakly stationary does not imply strictly stationary</li>
+<li>IID process is strictly stationary</li>
+</ol>
+<h5 id="how-to-make-a-stationary-sequence"><strong>How to make a stationary sequence?</strong></h5>
+<p>Let <span class="math inline">\(\{Z_t\}\)</span> be an iid sequence of random variables.</p>
+<p>Let <span class="math inline">\(X_t=g(Z_t, Z_{t-1}, ..., Z_{t-q})\)</span>, then <span class="math inline">\(X_t\)</span> us strictly stationary, because <span class="math inline">\(\left(z_{t+h}, \ldots, z_{t+h-q}\right) \stackrel{d}{=}\left(z_{t}, \ldots, z_{t-q}\right)\)</span></p>
+<p>This sequence <span class="math inline">\(\{X_t\}\)</span> is q-dependent, i.e. <span class="math inline">\(X_t\)</span> and <span class="math inline">\(X_s\)</span> are independent if <span class="math inline">\(|t-s|&gt;q\)</span></p>
+<p>Generalize to weakly stationary, say that <span class="math inline">\(\{X_t\}\)</span> is q-correlated if <span class="math inline">\(\operatorname{Cov}\left(X_{t}, X_{s}\right)=0 \quad \forall|t-s|&gt;q \text { or } \gamma(h)=0 \quad \forall|h|&gt;q\)</span></p>
+<p>Every second order weakly stationary process is either a linear process or can be transformed into one by substracting a deterministic component.</p>
+<p><strong><u>Def</u></strong>. <span class="math inline">\(\{X_t\}\)</span> is a linear process if <span class="math inline">\(X_{t}=\sum_{j=-\infty}^{\infty} \psi_{j}-Z_{t-j}\)</span> where <span class="math inline">\(\{Z_t\}\sim WN(0, \sigma^2)\)</span> and <span class="math inline">\(\{\psi_{j}\}\)</span> is a sequence of where <span class="math inline">\(\sum_{j=-\infty}^{\infty}\left|\psi_{j}\right|&lt;\infty\)</span></p>
+<!--Lecture 9-->
+<p>We can view <span class="math inline">\(\{X_t\}\)</span> in terms of Backwards shift operator <span class="math inline">\(X_t=\psi(B)Z_t\)</span> where <span class="math inline">\(\psi(B)=\sum^\infty_{j=-\infty}\psi_jB^j\)</span>. (Example: Moving average process has this property)</p>
+<p><span class="math inline">\(E[|X_t|] \leq E[\sum^\infty_{j=-\infty}|Z_{t-j}\psi_j|] \\ \leq \sum^\infty_{j=-\infty}|\psi_j|E[|Z_{t-j}|] \leq \sum^\infty_{j=-\infty}|\psi_j|E[|Z_{t-j}|^2]^{1/2}\)</span></p>
+<p>Let <span class="math inline">\(\{Y_t\}\)</span> be stationary process with mean 0 and auto-covariance function <span class="math inline">\(\gamma_Y(h)\)</span>. If <span class="math inline">\(\sum^\infty_{j=-\infty}|\psi_j| &lt; \infty\)</span>, then for <span class="math inline">\(X_t = \sum^\infty_{j=-\infty}\psi_j Y_{t-j}=\psi(B)Y_t\)</span>, <span class="math inline">\(X_t\)</span> is also a stationary sequence with mean 0 and auto-cvovatiance funciton <span class="math inline">\(\gamma_X(h)=\sum^\infty_{j=-\infty}\sum^\infty_{k=-\infty} \psi_j \psi_k \gamma_Y(h+k-j)\)</span> where <span class="math inline">\(Y_t = \sum^\infty_{j=-\infty} \psi_j Z_{t-j}\)</span> and <span class="math inline">\(\{Z_t\}\)</span> is a White Noise process.</p>
+<p><strong><u>Proof</u></strong>. (There is a little difference in the notation of <span class="math inline">\(k\)</span> and <span class="math inline">\(j\)</span> because of different definition)</p>
+<p><span class="math inline">\(\gamma_X(h) = E[X_t X_{t-h}] \\=E\left[\left(\sum_{k=-\infty}^{\infty} \psi_{k} y_{t-k}\right)\left(\sum_{j=-\infty}^{\infty} \psi_{j} y_{t-j-h}\right)\right] \\=E\left[\sum_{j=-\infty}^{\infty} \sum_{k=-\infty}^{\infty} \psi_{k} \psi_{j}\left(y_{t-k}\right)\left(y_{t-j-h}\right)\right] \\=\sum_{j=-\infty}^{\infty} \sum_{k=-\infty}^{\infty} \psi_{k} \psi_{j} \gamma_{Y}(h+j-k)\)</span></p>
+<p>If <span class="math inline">\(\{Y_t\}\)</span> is <span class="math inline">\(WN(0, \sigma^2)\)</span> process, then <span class="math inline">\(\gamma_Y(l)=0, \forall l\neq 0\)</span> <span class="math inline">\(\Rightarrow\)</span> <span class="math inline">\(\gamma_X(h)=\sum_{j=-\infty}^{\infty} \psi_j\psi_{j-h} \sigma^{2}\)</span></p>
+<p>Example: AR(1) process</p>
+<p>For <span class="math inline">\(\{X_t\}\)</span> stationary, let <span class="math inline">\(X_t=\phi X_{t-1}Z_t\)</span> where <span class="math inline">\(\{Z_t\} \sim WN(0, \sigma^2)\)</span>. <span class="math inline">\(\{X_t\}\)</span> and <span class="math inline">\(\{Z_s\}\)</span> are uncorrelated for <span class="math inline">\(s&gt;t\)</span></p>
+<p>Define <span class="math inline">\(\{X_t\}\)</span> to be the solution to <span class="math inline">\(X_t - \phi X_{t-1} = Z_t\)</span></p>
+<p>Consider <span class="math inline">\(X_t=\sum^\infty_{j=0}\phi^jZ_{t-j}\)</span>, we have that <span class="math inline">\(\{X_t\}\)</span> is linear with <span class="math inline">\(\psi_j=\phi^j \quad \text{for} j \geq 0\)</span>, and <span class="math inline">\(\psi_j=0 \quad \text{for} j &lt; 0\)</span>.</p>
+<p>And <span class="math inline">\(\sum^\infty_{j=-\infty}|\psi_j| &lt; \infty\)</span> iff <span class="math inline">\(|\phi| &lt; 1\)</span></p>
+<p>To solve <span class="math inline">\(X_{t}-\phi X_{t-1}=Z_t\)</span>:</p>
+<p><span class="math inline">\(\left[\sum_{j=0}^{\infty} \phi^{j} Z_{t-j}\right]-\phi\left[\sum_{j=0}^{\infty} \phi^{j} Z_{t-1-j}\right] = Z_{t}\)</span></p>
+<p><span class="math inline">\(\left[\sum_{j=0}^{\infty} \phi^{j} Z_{t-j}\right]-\left[\sum_{j=0}^{\infty} \phi^{j+1} Z_{t-(j+1)}\right] = Z_{t}\)</span></p>
+<p><span class="math inline">\(\left[\sum_{j=0}^{\infty} \phi^{j} Z_{t-j}\right]-\left[\sum_{j=1}^{\infty} \phi^{j} Z_{t-j}\right] = Z_{t}\)</span></p>
+<p><span class="math inline">\(Z_t=Z_t\)</span></p>
+<p>Therefore, <span class="math inline">\(\{Z_t\}\)</span> is stationary <span class="math inline">\(\Rightarrow\)</span> <span class="math inline">\(\{X_t\}\)</span> is stationary with mean 0 and auto-covariance function <span class="math inline">\(\gamma_X(h)=\sum_{j=0}^{\infty} \phi^j\phi^{j+h} \sigma^{2}=\frac{\sigma^2 \phi^h}{1-\phi^2}\)</span></p>
+<p>If <span class="math inline">\(|\phi| &gt; 1\)</span>, then no stationary sequence exists that dependent on the past</p>
+<p>Let <span class="math inline">\(\Phi(B)=1-\phi B\)</span> and <span class="math inline">\(\Pi(B)=\sum^\infty_{j=0}\psi^jB^j\)</span></p>
+<p>Then <span class="math inline">\(\psi(B)=\Phi(B)\Pi(B)\\=(1-\phi B)(\sum^\infty_{j=0}\psi^jB^j)\\=\sum^\infty_{j=0}\psi^jB^j - \sum^\infty_{j=0}\psi^{j+1}B^{j+1}\\=\psi^0B^0=1\)</span></p>
+<p><span class="math inline">\(X_t-\phi X_{t-1} = (1-\phi B)X_t=\Phi(B)X_t\)</span></p>
+<p><span class="math inline">\(\Pi(B)\Phi(B)X_t=\Pi(B)Z_t\)</span></p>
+<p><span class="math inline">\(\psi(B)X_t=\Pi(B)Z_t\)</span></p>
+<p><span class="math inline">\(X_t = \sum^\infty_{j=0}\phi^jB_jZ_t = \sum^\infty_{j=0}\phi^jZ_{t-j}\)</span></p>
+
+        </div>
+
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tag/mathematics/"># mathematics</a>
+                    
+                        <a href="/tag/time-series/"># time-series</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+                <a class="prev" rel="prev" href="/2020/02/07/Introduction to Time Series Analysis - 04/">Introduction to Time Series Analysis - 04</a>
+            
+            
+            <a class="next" rel="next" href="/2020/01/21/Introduction to Time Series Analysis - 02/">Introduction to Time Series Analysis - 02</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Zhenyuan Ma | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>
