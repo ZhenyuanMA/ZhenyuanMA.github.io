@@ -252,6 +252,91 @@
 <p>Plugin <span class="math inline">\(\hat{\Gamma}=\sum_{|h|}\hat{\gamma}(h)\)</span></p>
 <p>Example: AR(1) process</p>
 <p>Let <span class="math inline">\(\{X_t\}\)</span> be defined by <span class="math inline">\(X_t - \mu = \phi(X_{t-1}-\mu) + Z_t\)</span> where <span class="math inline">\(|\phi| &lt; 1\)</span> and <span class="math inline">\(\{Z_t\}\sim WN(0, \sigma^2)\)</span></p>
+<p>So, <span class="math inline">\(\begin{aligned} \Gamma &amp;=\sum_{|h| &lt; \infty} \gamma(h) = \sum_{|h| &lt; \infty} \frac{\sigma^2 \phi^{|h|}}{1-\phi^2} \\ &amp;=(1+2\sum^{\infty}_{h=1} \phi^{|h|})\frac{\sigma^2}{1-\phi^2} \\ &amp;=(1+2\frac{\phi}{1-\phi})\frac{\sigma^2}{1-\phi^2} \\ &amp;=\frac{1-\phi+2\phi}{1-\phi}\frac{\sigma^2}{(1+\phi)(1-\phi)} \\ &amp;=\frac{\sigma^2}{(1-\phi)^2} \end{aligned}\)</span></p>
+<p>So 95% Confidence Interval for <span class="math inline">\(\mu\)</span>:</p>
+<p><span class="math inline">\(\bar{X}_n \pm \frac{1.96}{\sqrt{n}}\frac{\sigma}{\sqrt{(1-\phi)^2}} = \bar{X}_n \pm \frac{1.96}{\sqrt{n}}\frac{\sigma}{|1-\phi|}\)</span></p>
+<p><span class="math inline">\(\hat{\gamma}(h)=\frac{1}{n}\sum_{t=1}^{n-|h|}(X_{t+|h|}-\bar{X}_n)(X_t-\bar{X}_n)\)</span></p>
+<p><span class="math inline">\(\hat{\rho}(h)=\frac{\hat{\gamma}(h)}{\hat{\gamma}(0)}\)</span></p>
+<p>Both <u>biased</u> in finite samples, but consistent</p>
+<p>$_k = $</p>
+<p>For all <span class="math inline">\(k&lt;n\)</span>, <span class="math inline">\(\hat{\Gamma}_k\)</span> will be non-negative definite. Not obvious how to estimate for <span class="math inline">\(k\geq n\)</span>, even for <span class="math inline">\(k\)</span> close to <span class="math inline">\(n\)</span>, <span class="math inline">\(\hat{\Gamma}\)</span> will be unstable.</p>
+<p>(Jenkin's rule &amp; theorems: need <span class="math inline">\(n=50\)</span> and <span class="math inline">\(h\leq \frac{n}{4}\)</span>)</p>
+<p>In large samples without large lags, can approximate the distribution of <span class="math inline">\((\hat{\rho}(1), \cdots, \hat{\rho}(k))\)</span> by:</p>
+<p><span class="math display">\[\hat{\rho} \sim MVN(\rho, \frac{1}{n}W)\]</span></p>
+<p>where <span class="math inline">\(W\)</span> is a <span class="math inline">\(k\times k\)</span> covariance matrix with elements computed by a simplification of butlet's formula:</p>
+<p><span class="math inline">\(w_{ij}=\sum^\infty_{k=1}\{\rho(k+i)+\rho(k-i)-2\rho(k)\rho(i)\}\times\{\rho(k+j)+\rho(k-j)-2\rho(k)\rho(j)\}\)</span></p>
+<p><strong><u>Example</u></strong></p>
+<p><span class="math inline">\(\{X_t\}\)</span> iid <span class="math inline">\(\Rightarrow\)</span> <span class="math inline">\(\rho(0)=1\)</span> and <span class="math inline">\(\rho(h)=0 \quad |h|&gt;1\)</span></p>
+<p>So <span class="math inline">\(w_{ij}=\sum^\infty_{k=1}\rho(k-i)\rho(k-j)\)</span></p>
+<p>We have <span class="math inline">\(w_{ii}=1\)</span> and <span class="math inline">\(w_{ij}=0\)</span>, so <span class="math inline">\(\hat{\rho}(h) \sim N(0, \frac{1}{n})\)</span> as <span class="math inline">\(W=I\)</span></p>
+<p>We have an MA(1) process with <span class="math inline">\(X_t=Z_t+\theta Z_{t-1}\)</span> where <span class="math inline">\(Z_t \sim WN(0, \sigma^2)\)</span></p>
+<p>Then <span class="math inline">\(X_t=\sum^\infty_{k=0}\psi_k Z_{t-k}\)</span> and</p>
+<p><span class="math inline">\(\Rightarrow \psi_k = \begin{cases} 1, \text{for } k=0 \\ \theta, \text{for } k=1 \\ 0, \text{for } k\neq\{0, 1\} \end{cases}\)</span></p>
+<p>So <span class="math inline">\(\gamma_X(h)=\sum^\infty_{j=-\infty} \psi_j \psi_{j-h}\sigma^2 = \begin{cases}(1+\theta^2)\sigma^2, \text{for } h=0 \\ \theta\sigma^2, \text{for } h=1 \\ 0, \text{for } h\geq 2 \end{cases}\)</span></p>
+<!--Lecture 11-->
+<p>So <span class="math inline">\(\rho(0) = 1\)</span> and <span class="math inline">\(\rho(\pm 1) = \frac{\gamma(1)}{\gamma(0)} = \frac{\theta}{1+\theta^2}\)</span></p>
+<p>From the formula <span class="math inline">\(w_{ij}=\sum^\infty_{k=1}\{\rho(k+i)+\rho(k-i)-2\rho(k)\rho(i)\}\times\{\rho(k+j)+\rho(k-j)-2\rho(k)\rho(j)\}\)</span>, we have for <span class="math inline">\(i=j\)</span></p>
+<p><span class="math inline">\(w_{ii}=\sum^\infty_{k=1}\{\rho(k+i)+\rho(k-i)-2\rho(k)\rho(i)\}^2\)</span></p>
+<p><span class="math inline">\(w_{11}=(\rho(o)-2\rho(1))^2 + \rho(1)^2 = 1-3\rho(1)^2+4\rho(1)^4\)</span></p>
+<p>If it is the case of MA(1), <span class="math inline">\(\hat{\rho}(1) \sim N(\frac{\theta}{1+\theta^2}, \frac{1}{n}(1-3\rho(1)^2+4\rho(1)^4))\)</span></p>
+<p>For <span class="math inline">\(i&gt;1\)</span>, <span class="math inline">\(w_{ii}=\sum^\infty_{k=1}\{\rho(k+i)+\rho(k-i)-2\rho(k)\rho(i)\}^2 \\=\rho(0)^2 + \rho(1)^2 + \rho(-1)^2 = 1+2\rho(1)^2\)</span></p>
+<p>(Note: because in this case, <span class="math inline">\(\rho(k+i)\)</span> is always 0, <span class="math inline">\(\rho(k)\rho(i)\)</span> is always 0, <span class="math inline">\(\rho(k-i)\)</span> is nonzero only when <span class="math inline">\(k = i, i+1, i-1\)</span>)</p>
+<h5 id="prediction-forecasting"><strong>Prediction (Forecasting)</strong></h5>
+<p>Goal: Find linear construction of <span class="math inline">\(X_1, \cdots, X_n\)</span> that forecasts <span class="math inline">\(X_{n+h}\)</span> with minimum MSE</p>
+<p>Assume best linear predictor of <span class="math inline">\(X_{n+h}\)</span> is:</p>
+<p><span class="math inline">\(P_nX_{n+h} = a_0+a_1X_n+a_2X_{n-1}+\cdots+a_nX_1\)</span></p>
+<p>We want to find <span class="math inline">\(a_0, a_1, \cdots, a_n\)</span> to minimize:</p>
+<p><span class="math inline">\(S(a_0, a_1, \cdots, a_n) = E[(X_{n+h} - (a_0+a_1X_n+a_2X_{n-1}+\cdots+a_nX_1))^2]\)</span></p>
+<p><span class="math inline">\(S\)</span> is quadratic, bounded below by zero, and there exist at least one solution to <span class="math inline">\(\frac{\partial}{\partial a_j}S(a_0, \cdots, a_n)=0\)</span> for <span class="math inline">\(j = 0, 1, \cdots, n\)</span></p>
+<p>By taking derivatives, it gives (assuming interchange <span class="math inline">\(\frac{\partial}{\partial a_j}\)</span> and <span class="math inline">\(E[\cdot]\)</span> safely)</p>
+<p><span class="math display">\[[1]\begin{equation}\frac{\partial}{\partial a_0}S(a_0, \cdots, a_n)=0 \Rightarrow E[X_{n+h} - a_0 - \sum^n_{i=1}a_iX_{n+1-i}]=0 \end{equation}\]</span></p>
+<p><span class="math display">\[[2]\begin{equation}\frac{\partial}{\partial a_j}S(a_0, \cdots, a_n)=0 \Rightarrow E[(X_{n+h} - a_0 - \sum^n_{i=1}a_iX_{n+1-i})X_{n+1-j}]=0 \end{equation}\]</span></p>
+<p>From equation 1 we have:</p>
+<p><span class="math inline">\(a_0 = E(X_{n+h}) - \sum_{i=1}^n a_i E(X_{n+1-i}) \\=\mu-\mu \sum^n_{i=1} a_i\)</span> if <span class="math inline">\(\{X_t\}\)</span> is stationary</p>
+<p>Plug it into equation 2, we have:</p>
+<p><span class="math inline">\(E[(X_{n+h} - \mu(1-\sum^n_{i=1} a_i) - \sum^n_{i=1}a_iX_{n+1-i})X_{n+1-j}] = 0\)</span></p>
+<p><span class="math inline">\(E[(X_{n+h}-\mu)X_{n+1-j}]=E[\sum^n_{i=1}a_i(X_{n+1-i}-\mu)X_{n+1-j}]\)</span></p>
+<p><span class="math inline">\(\gamma(h+j-1) = \sum^n_{i=1}a_i E[(X_{n+h}-\mu)X_{n+1-j}] = \sum^n_{i=1}a_i \gamma(i-j)\)</span></p>
+<p>We have a matrix form of this formula <span class="math inline">\(\Gamma_n\underset{\sim}{a_n} = \underset{\sim}{\gamma_n}(h)\)</span> where <span class="math inline">\((\Gamma_n)_{ij} = \gamma(i-j)\)</span></p>
+<p>Therefore <span class="math inline">\(P_nX_{n+h} = \mu + \sum^n_{i=1}a_i(X_{n+1-i}-\mu)\)</span> where <span class="math inline">\(\underset{\sim}{a_n}\)</span> satisfies <span class="math inline">\(\Gamma_n\underset{\sim}{a_n} = \underset{\sim}{\gamma_n}(h)\)</span>.</p>
+<p>Obviously, <span class="math inline">\(E[X_{n+h} - (\mu + \sum^n_{i=1}a_i(X_{n+1-i}-\mu))] = 0\)</span></p>
+<p><span class="math inline">\(\begin{align}MSE &amp;=E((X_{n+h} - P_nX_{n+h})^2) \\&amp;=E(X_{n+h} - (\mu + \sum^n_{i=1}a_i(X_{n+1-i}-\mu))^2) \\&amp;=E[((X_{n+h} - \mu) -( \sum^n_{i=1}a_i(X_{n+1-i}-\mu)))^2] \\&amp;=E((X_{n+h} - \mu)^2) -2E((X_{n+h} - \mu)(\sum^n_{i=1}a_i(X_{n+1-i}-\mu))) + E((\sum^n_{i=1}a_i(X_{n+1-i}-\mu))^2) \\&amp;=\gamma(0) - 2\sum^n_{i=1} E((X_{n+h}-\mu)(X_{n+1-i}-\mu))+\sum^n_{i=1}\sum^n_{j=1}a_iE((X_{n+1-i}-\mu)(X_{n+1-j}-\mu))a_j \\&amp;=\gamma(0) - w\sum^n_{i=1}a_i\gamma(h+i-1) + \sum^n_{i=1}\sum^n_{j=1}a_i\gamma(i-j)a_j \\&amp;=\gamma(0) - w\sum^n_{i=1}a_i\gamma(h+i-1) + \sum^n_{i=1}a_i(\sum^n_{j=1}\gamma(i-j)a_j) \\&amp;=\gamma(0) - 2\underset{\sim}{a_n}^T\underset{\sim}{\gamma_n}(h) + \underset{\sim}{a_n}^T\Gamma_n\underset{\sim}{a_n} \\&amp;=\gamma(0) - \underset{\sim}{a_n}^T\underset{\sim}{\gamma_n}(h) \end{align}\)</span></p>
+<p>(Note: because <span class="math inline">\(\underset{\sim}{a_n}\)</span> satisfies <span class="math inline">\(\Gamma_n\underset{\sim}{a_n} = \underset{\sim}{\gamma_n}(h)\)</span>, so <span class="math inline">\(\underset{\sim}{a_n}^T\underset{\sim}{\gamma_n}(h) = \underset{\sim}{a_n}^T\Gamma_n\underset{\sim}{a_n}\)</span> )</p>
+<!--Lecture 12-->
+<p><strong><u>Example</u> AR(1)</strong></p>
+<p><span class="math inline">\(X_t = \phi X_{t-1} + Z_t\)</span>, where <span class="math inline">\(|\phi|&lt;1\)</span> and <span class="math inline">\(\{Z_t\} \sim WN(0, \sigma^2)\)</span></p>
+<p>We try <span class="math inline">\(a_1=\phi, a_k = 0\)</span> for <span class="math inline">\(k = 2, \cdots, n\)</span></p>
+<p>A solution that works is <span class="math inline">\(\underset{\sim}{a_n} = (\phi, 0, \cdots, 0)\)</span> and <span class="math inline">\(P_nX_{n+1} = \underset{\sim}{a_n}^T\underset{\sim}{X_n} = \phi X_n\)</span></p>
+<p><span class="math inline">\(E((X_{n+1} - P_nX_{n+1})^2) = \gamma(0) - \underset{\sim}{a_n}^T \underset{\sim}{\gamma}(1) \\=\frac{\sigma^2}{1-\phi^2} - \phi\gamma(1) =\frac{\sigma^2}{1-\phi^2} - \phi\frac{\sigma^2\phi}{1-\phi^2} \\= \sigma^2\)</span></p>
+<p>Now let <span class="math inline">\(Y\)</span> and <span class="math inline">\(W_1, \cdots, W_n\)</span> be any random variabe with finite second moments and means <span class="math inline">\(\mu = E(Y)\)</span> and <span class="math inline">\(\mu_i = E(W_i)\)</span>, and covariance <span class="math inline">\(Cov(Y, Y), Cov(Y, W_i), Cov(W_i, W-j)\)</span></p>
+<p>Let <span class="math inline">\(\underset{\sim}{W} = (W_n, \cdots, W_1)\)</span>, <span class="math inline">\(\underset{\sim}{\mu} = (\mu_n, \cdots, \mu_1)\)</span>, and <span class="math inline">\(\underset{\sim}{\gamma} = Cov(Y, \underset{\sim}{W})\)</span>, <span class="math inline">\(\Gamma = Cov(\underset{\sim}{W}, \underset{\sim}{W})\)</span> such that <span class="math inline">\(\Gamma_{ij} = Cov(W_{n+1-i}, W_{n+1-j})\)</span></p>
+<p>By exactly the same methods from before, we show that the best linear predictor of <span class="math inline">\(Y\)</span> given <span class="math inline">\(W\)</span> is:</p>
+<p><span class="math inline">\(P(Y|W) = \mu_Y + \underset{\sim}{a}^T(\underset{\sim}{W} - \underset{\sim}{\mu_W})\)</span></p>
+<p>where <span class="math inline">\(\underset{\sim}{a} = (a_1, \cdots, a_n)\)</span> is any solution of <span class="math inline">\(\Gamma\underset{\sim}{a} = \underset{\sim}{\gamma}\)</span></p>
+<p>Return to AR(1), assume that we observe <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_3\)</span> but not <span class="math inline">\(X_2\)</span></p>
+<p>Let <span class="math inline">\(Y=X_2\)</span> and <span class="math inline">\(W=(X_1, X_3)\)</span>, we have</p>
+<p><span class="math inline">\(\Gamma = \begin{pmatrix} \frac{\sigma^2}{1-\phi^2} &amp; \frac{\phi^2\sigma^2}{1-\phi^2}\\ \frac{\phi^2\sigma^2}{1-\phi^2} &amp; \frac{\sigma^2}{1-\phi^2} \end{pmatrix}\)</span></p>
+<p><span class="math inline">\(\gamma = \begin{pmatrix} Cov(X_2, X_1) \\ Cov(X_2, X_3) \end{pmatrix} = \begin{pmatrix} \frac{\sigma^2}{1-\phi^2}\phi \\ \frac{\sigma^2}{1-\phi^2}\phi \end{pmatrix}\)</span></p>
+<p>As <span class="math inline">\(\Gamma\underset{\sim}{a} = \underset{\sim}{\gamma} \Rightarrow \begin{pmatrix} 1 &amp; \phi^2\\ \phi^2 &amp; 1 \end{pmatrix}\underset{\sim}{a} = \begin{pmatrix} \phi\\ \phi \end{pmatrix}\)</span></p>
+<p>So <span class="math inline">\(\underset{\sim}{a} = \begin{pmatrix} \frac{\phi}{1+\phi^2}\\ \frac{\phi}{1+\phi^2} \end{pmatrix}\)</span></p>
+<p><span class="math inline">\(P(X_2|X_1, X_3) = \frac{\phi}{1+\phi^2}X_1 + \frac{\phi}{1+\phi^2}X_3 = \frac{\phi}{1+\phi^2}(X_1+X_3) + \frac{\phi}{1+\phi^2}\cdot 0\)</span></p>
+<p><span class="math inline">\(P(\cdot|W)\)</span> is a prediction operator and it has useful properties:</p>
+<p>Let <span class="math inline">\(E(U^2) &lt; \infty, E(V^2) &lt; \infty, \Gamma=Cov(\underset{\sim}{W}, \underset{\sim}{W})\)</span></p>
+<p>Let <span class="math inline">\(\beta, a_1, \cdots, a_n\)</span> be constants</p>
+<ol type="1">
+<li><span class="math inline">\(P(U|W) = E(U) + a^T(W - E(\underset{\sim}{W}))\)</span> where <span class="math inline">\(\Gamma_\underset{\sim}{a} = Cov(U, \underset{\sim}{W})\)</span></li>
+<li><span class="math inline">\(E((U-P(U|\underset{\sim}{W}))\underset{\sim}{W}) = \underset{\sim}{0}\)</span> and <span class="math inline">\(E(U-P(U|\underset{\sim}{W}))=0\)</span></li>
+<li><span class="math inline">\(E((U-P(U|\underset{\sim}{W}))^2) = Var(U) - \underset{\sim}{a}^TCov(U, \underset{\sim}{W})\)</span></li>
+<li><span class="math inline">\(P(a_iU+a_2V+\beta|W) = a_1P(U|W) + a_2P(V|W)+\beta\)</span></li>
+<li><span class="math inline">\(P(\sum_{i=1}^na_iw_i + \beta|\underset{\sim}{W}) = \sum_{i=1}^na_iw_i+\beta\)</span></li>
+<li><span class="math inline">\(P(U|\underset{\sim}{W}) = E(U)\)</span> if <span class="math inline">\(Cov(U,\underset{\sim}{W})=0\)</span></li>
+<li><span class="math inline">\(P(U|\underset{\sim}{W})=P(P(U|\underset{\sim}{W},\underset{\sim}{V})|\underset{\sim}{W})\)</span></li>
+</ol>
+<p>(Note: for property 7, <span class="math inline">\(P(U|\underset{\sim}{W}, \underset{\sim}{V})=\mu_U+a_W(W-\mu_W)+a_V(V-\mu_V)\)</span>, <span class="math inline">\(P(U|\underset{\sim}{W}) = P(\mu_U + a_W(W-\mu_W)+a_V(V-\mu_V)|W)\)</span>)</p>
+<p>Assume <span class="math inline">\(\{X_t\}\)</span> is a stationary process with mean 0 and auto-covariance function <span class="math inline">\(\gamma(\cdot)\)</span>, we can solve for <span class="math inline">\(\underset{\sim}{a}\)</span> to determine <span class="math inline">\(P_nX_{n+h}\)</span> in terms of <span class="math inline">\(\{X_n, \cdots, X_1\}\)</span>.</p>
+<p>However, for large <span class="math inline">\(n\)</span>, inventory <span class="math inline">\(\Gamma\)</span> is not fun!</p>
+<p>Perhaps we can use linearity of <span class="math inline">\(P_n\)</span> to do recursive prediction of <span class="math inline">\(P_{n+1}X_{n+h}\)</span> from <span class="math inline">\(P_nX_{n+1}\)</span>.</p>
+<p>If <span class="math inline">\(\Gamma_n\)</span> id non-singular, then <span class="math inline">\(P_nX_{n+1} = \underset{\sim}{\phi^T_n}\underset{\sim}{X} = \phi_1X_n + \cdots + \phi_nX_1\)</span></p>
 
         </div>
 
