@@ -20,18 +20,18 @@
     var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Introduction to Time Series Analysis - 02 This note is for course MATH 545 at McGill University. We recommend an R package named &quot;forecast&quot;.   First order Autoregressive process AR(1) Assume \(\{X_t\}">
+  <meta name="description" content="Introduction to Time Series Analysis - 02 This note is for course MATH 545 at McGill University. Lecture 4 - Lecture 6 We recommend an R package named &quot;forecast&quot;.">
 <meta name="keywords" content="mathematics,time-series">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Introduction to Time Series Analysis - 02">
 <meta property="og:url" content="http://yoursite.com/2020/01/21/Introduction to Time Series Analysis - 02/index.html">
 <meta property="og:site_name" content="Zhenyuan Ma">
-<meta property="og:description" content="Introduction to Time Series Analysis - 02 This note is for course MATH 545 at McGill University. We recommend an R package named &quot;forecast&quot;.   First order Autoregressive process AR(1) Assume \(\{X_t\}">
+<meta property="og:description" content="Introduction to Time Series Analysis - 02 This note is for course MATH 545 at McGill University. Lecture 4 - Lecture 6 We recommend an R package named &quot;forecast&quot;.">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-01-24T20:08:05.412Z">
+<meta property="og:updated_time" content="2020-02-18T18:05:34.940Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Introduction to Time Series Analysis - 02">
-<meta name="twitter:description" content="Introduction to Time Series Analysis - 02 This note is for course MATH 545 at McGill University. We recommend an R package named &quot;forecast&quot;.   First order Autoregressive process AR(1) Assume \(\{X_t\}">
+<meta name="twitter:description" content="Introduction to Time Series Analysis - 02 This note is for course MATH 545 at McGill University. Lecture 4 - Lecture 6 We recommend an R package named &quot;forecast&quot;.">
 
 <link rel="canonical" href="http://yoursite.com/2020/01/21/Introduction to Time Series Analysis - 02/">
 
@@ -197,7 +197,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-01-24 15:08:05" itemprop="dateModified" datetime="2020-01-24T15:08:05-05:00">2020-01-24</time>
+                <time title="Modified: 2020-02-18 13:05:34" itemprop="dateModified" datetime="2020-02-18T13:05:34-05:00">2020-02-18</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -224,8 +224,10 @@
       
         <h2 id="introduction-to-time-series-analysis---02">Introduction to Time Series Analysis - 02</h2>
 <p>This note is for course MATH 545 at McGill University.</p>
+<p>Lecture 4 - Lecture 6</p>
 <p>We recommend an R package named <a href="https://www.r-project.org/nosvn/pandoc/forecast.html" target="_blank" rel="noopener">"forecast"</a>.</p>
 <hr>
+<a id="more"></a>
 <!--Lecture 4-->
 <h5 id="first-order-autoregressive-process-ar1"><strong>First order Autoregressive process AR(1)</strong></h5>
 <p>Assume <span class="math inline">\(\{X_t\}\)</span> is a sequence of random variables that is stationary, satisfying <span class="math inline">\(X_t = \phi X_{t-1} + Z_t\)</span>, for <span class="math inline">\(t=0, \pm 1, \pm 2, ...\)</span>, where <span class="math inline">\(\{Z_t\}\)</span> is a White Noise process of <span class="math inline">\(WN(0, \sigma^2)\)</span>, and <span class="math inline">\(\{Z_t\}\)</span> is uncorrelated with <span class="math inline">\(\{X_t\}\)</span> for <span class="math inline">\(\forall s&lt;t\)</span>, and <span class="math inline">\(\phi\)</span> is a real-valued constant.</p>
