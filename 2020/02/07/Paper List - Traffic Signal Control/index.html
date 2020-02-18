@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="default">
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <meta name="author" content="Zhenyuan Ma">
+
+
+
+    <meta name="description" content="Master student in McGill University 
+">
+
+
+
+<title>Paper List - Traffic Signal Control | Zhenyuan Ma</title>
+
+
+
+    <link rel="icon" href="/favicon.png">
+
+
+
+
+    <!-- stylesheets list from _config.yml -->
+    
+    <link rel="stylesheet" href="/css/style.css">
+    
+
+
+
+    <!-- scripts list from _config.yml -->
+    
+    <script src="/js/script.js"></script>
+    
+    <script src="/js/tocbot.min.js"></script>
+    
+
+
+
+    
+    
+        
+    
+
+
+</head>
+<body>
+    <div class="wrapper">
+        <header>
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-header header-logo"><a href="/">Zhenyuan&#39;s Blog</a></div>
+            <div class="menu navbar-right">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                    <a class="menu-item" href="/links">Link</a>
+                
+                <input id="switch_default" type="checkbox" class="switch_default">
+                <label for="switch_default" class="toggleBtn"></label>
+            </div>
+
+        </div>
+    </nav>
+
+    
+    <nav class="navbar-mobile" id="nav-mobile">
+        <div class="container">
+            <div class="navbar-header">
+                <div>
+                    <a href="/">Zhenyuan&#39;s Blog</a><a id="mobile-toggle-theme">·&nbsp;Light</a>
+                </div>
+                <div class="menu-toggle" onclick="mobileBtn()">&#9776; Menu</div>
+            </div>
+            <div class="menu" id="mobile-menu">
+                
+                    <a class="menu-item" href="/archives">Posts</a>
+                
+                    <a class="menu-item" href="/about">About</a>
+                
+                    <a class="menu-item" href="/links">Link</a>
+                
+            </div>
+        </div>
+    </nav>
+
+</header>
+<script>
+    var mobileBtn = function f() {
+        var toggleMenu = document.getElementsByClassName("menu-toggle")[0];
+        var mobileMenu = document.getElementById("mobile-menu");
+        if(toggleMenu.classList.contains("active")){
+           toggleMenu.classList.remove("active")
+            mobileMenu.classList.remove("active")
+        }else{
+            toggleMenu.classList.add("active")
+            mobileMenu.classList.add("active")
+        }
+    }
+</script>
+        <div class="main">
+            <div class="container">
+    
+    
+        <div class="post-toc">
+    <div class="tocbot-list">
+    </div>
+    <div class="tocbot-list-menu">
+        <a class="tocbot-toc-expand" onclick="expand_toc()">Expand all</a>
+        <a onclick="go_top()">Back to top</a>
+        <a onclick="go_bottom()">Go to bottom</a>
+    </div>
+</div>
+
+<script>
+    document.ready(
+        function () {
+            tocbot.init({
+                tocSelector: '.tocbot-list',
+                contentSelector: '.post-content',
+                headingSelector: 'h1, h2, h3, h4, h5',
+                collapseDepth: 1,
+                orderedList: false,
+                scrollSmooth: true,
+            })
+        }
+    )
+
+    function expand_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 6,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "collapse_toc()");
+        b.innerHTML = "Collapse all"
+    }
+
+    function collapse_toc() {
+        var b = document.querySelector(".tocbot-toc-expand");
+        tocbot.init({
+            tocSelector: '.tocbot-list',
+            contentSelector: '.post-content',
+            headingSelector: 'h1, h2, h3, h4, h5',
+            collapseDepth: 1,
+            orderedList: false,
+            scrollSmooth: true,
+        });
+        b.setAttribute("onclick", "expand_toc()");
+        b.innerHTML = "Expand all"
+    }
+
+    function go_top() {
+        window.scrollTo(0, 0);
+    }
+
+    function go_bottom() {
+        window.scrollTo(0, document.body.scrollHeight);
+    }
+
+</script>
+    
+
+    
+    <article class="post-wrap">
+        <header class="post-header">
+            <h1 class="post-title">Paper List - Traffic Signal Control</h1>
+            
+                <div class="post-meta">
+                    
+                        Author: <a itemprop="author" rel="author" href="/">Zhenyuan Ma</a>
+                    
+
+                    
+                        <span class="post-time">
+                        Date: <a href="#">2020 02 07&nbsp;&nbsp;14:29:11</a>
+                        </span>
+                    
+                    
+                        <span class="post-category">
+                    Category:
+                            
+                                <a href="/category/Paper-List/">Paper List</a>
+                            
+                        </span>
+                    
+                </div>
+            
+        </header>
+
+        <div class="post-content">
+            <h2 id="paper-list-traffic-signal-control"><a class="markdownIt-Anchor" href="#paper-list-traffic-signal-control"></a> Paper List - Traffic Signal Control</h2>
+<p>This is a list of papers about traffic signal control in reinforcement learning, especially for some special traffic situation.</p>
+<hr>
+<ul>
+<li>
+<p><a href="https://doi.org/10.1016/j.engappai.2019.103415" target="_blank" rel="noopener">Traffic-signal control reinforcement learning approach for continuous-time Markov games</a>: used a three-way intersection as an example, RL based</p>
+</li>
+<li>
+<p><a href="https://journals.sagepub.com/doi/pdf/10.1177/1687814016641292" target="_blank" rel="noopener">Traffic design and signal timing of staggered intersections based on a sorting strategy</a>: an LR-type staggered intersection of Shenhua Road and Zijinghua Road in the city of Hangzhou, China, not RL based</p>
+</li>
+<li>
+<p><a href="https://doi.org/10.1016/j.procs.2014.05.427" target="_blank" rel="noopener">Constrained Dynamic Control of Traffic Junctions</a>: provide a competing real-time adaptive control strategy which through the use of dynamic programming, an T-junction example</p>
+</li>
+<li>
+<p><a href="https://pdfs.semanticscholar.org/2ffa/76209108a63aeef9df04188493db56badc79.pdf" target="_blank" rel="noopener">Decentralised reinforcement learning for ramp metering and variable speed limits on highways</a>: RL based traffic flow control on highways</p>
+</li>
+<li>
+<p><a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=5708862" target="_blank" rel="noopener">Multi-Agent Inverse Reinforcement Learning</a>: RL based, simulation a traffic signal domain with 4 intersection near highway</p>
+</li>
+<li>
+<p><a href="https://doi.org/10.1016/j.engappai.2016.01.001" target="_blank" rel="noopener">Traffic flow optimization: A reinforcement learning approach</a>: traffic flow optimization on highway example, RL based</p>
+</li>
+<li>
+<p><a href="https://doi.org/10.1016/j.engappai.2012.02.013" target="_blank" rel="noopener">An automated signalized junction controller that learns strategies by temporal difference reinforcement learning</a>: examples of T junction and LR intersection, RL based</p>
+</li>
+<li>
+<p><a href="https://doi.org/10.1016/j.procs.2015.05.172" target="_blank" rel="noopener">Parallel Reinforcement Learning for Traffic Signal Control</a>, <a href="https://pdfs.semanticscholar.org/f988/4c5a132568dba4817c2d772a1176a9d703a6.pdf" target="_blank" rel="noopener">Parallel Reinforcement Learning with State Action Space Partitioning</a>: T junction example, RL based</p>
+</li>
+<li>
+<p><a href="https://link.springer.com/chapter/10.1007/978-3-030-29894-4_28" target="_blank" rel="noopener">Urban Traffic Control Using Distributed Multi-agent Deep Reinforcement Learning</a>: RL based approach for multi agent traffic control with multi-type intersection</p>
+</li>
+</ul>
+<hr>
+<p>More to be added …</p>
+
+        </div>
+
+        
+        <section class="post-tags">
+            <div>
+                <span>Tag(s):</span>
+                <span class="tag">
+                    
+                    
+                        <a href="/tag/traffic-signal-control/"># traffic-signal-control</a>
+                    
+                        
+                </span>
+            </div>
+            <div>
+                <a href="javascript:window.history.back();">back</a>
+                <span>· </span>
+                <a href="/">home</a>
+            </div>
+        </section>
+        <section class="post-nav">
+            
+            
+            <a class="next" rel="next" href="/2020/02/07/Introduction to Time Series Analysis - 04/">Introduction to Time Series Analysis - 04</a>
+            
+        </section>
+
+
+    </article>
+</div>
+
+        </div>
+        <footer id="footer" class="footer">
+    <div class="copyright">
+        <span>© Zhenyuan Ma | Powered by <a href="https://hexo.io" target="_blank">Hexo</a> & <a href="https://github.com/Siricee/hexo-theme-Chic" target="_blank">Chic</a></span>
+    </div>
+</footer>
+
+    </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>
