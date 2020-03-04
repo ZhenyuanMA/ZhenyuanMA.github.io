@@ -28,7 +28,7 @@
 <meta property="og:site_name" content="Zhenyuan Ma">
 <meta property="og:description" content="Literature Review - Traffic Signal Control This is a lliterature review about traffic signal control in reinforcement learning, including all the papers in the Paper List post. For self-use only, not">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2020-02-28T00:11:18.571Z">
+<meta property="og:updated_time" content="2020-03-04T01:14:49.577Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Literature Review - Traffic Signal Control">
 <meta name="twitter:description" content="Literature Review - Traffic Signal Control This is a lliterature review about traffic signal control in reinforcement learning, including all the papers in the Paper List post. For self-use only, not">
@@ -189,10 +189,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Posted on</span>
-              
 
-              <time title="Created: 2020-02-27 19:06:15 / Modified: 19:11:18" itemprop="dateCreated datePublished" datetime="2020-02-27T19:06:15-05:00">2020-02-27</time>
+              <time title="Created: 2020-02-27 19:06:15" itemprop="dateCreated datePublished" datetime="2020-02-27T19:06:15-05:00">2020-02-27</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-03-03 20:14:49" itemprop="dateModified" datetime="2020-03-03T20:14:49-05:00">2020-03-03</time>
+              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="fa fa-folder-o"></i>
@@ -216,45 +222,104 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h2 id="literature-review---traffic-signal-control">Literature Review - Traffic Signal Control</h2>
+        <h2 id="literature-review-traffic-signal-control"><a class="markdownIt-Anchor" href="#literature-review-traffic-signal-control"></a> Literature Review - Traffic Signal Control</h2>
 <p>This is a lliterature review about traffic signal control in reinforcement learning, including all the papers in the Paper List post.</p>
 <p>For self-use only, not regular literature review.</p>
 <hr>
 <a id="more"></a>
-<h4 id="background"><strong>Background</strong></h4>
-<h4 id="models"><strong>Models</strong></h4>
-<h4 id="simulators"><strong>Simulators</strong></h4>
-<h4 id="dataset"><strong>Dataset</strong></h4>
-<h4 id="future-directions"><strong>Future Directions</strong></h4>
+<h4 id="background"><a class="markdownIt-Anchor" href="#background"></a> <strong>Background</strong></h4>
+<ul>
+<li>
+<p>Previous research tends to represent the traffic signal control problem using the queue theory, fixing the time and the model, which are designed using complete information. [01]</p>
+</li>
+<li>
+<p>As with common cross intersections, staggered inter- sections are not signal-controlled when the traffic flow is small. As the traffic flow of the major road grows, the gaps for minor traffic to cross the intersection become insufficient. Thus, a signal control is needed to distribute the right of way. Designing the signal timing plan of a staggered intersection is rather difficult due to its special geographical characteristics. [02]</p>
+</li>
+<li>
+<p>The key assumption for RL is that the reward function being optimized is accessible to the agent. However, there are several cases in which the reward might not be easily specifiable. This naturally occurs in the case where an agent observes an expert and tries to learn from the expert; this is called <em>apprenticeship learning</em>. [08]</p>
+</li>
+</ul>
+<h4 id="traffic-models"><a class="markdownIt-Anchor" href="#traffic-models"></a> <strong>Traffic Models</strong></h4>
+<ul>
+<li>
+<p>The queue model [01] expresses the link travel time given the inflow rate and exit flow rate.</p>
+</li>
+<li>
+<p>Game theory [01] for three signal controllers correspondint to the players: update the number of vehicles in the street for three players. (As they use an example of a junction between three road segments, see Fig 2)</p>
+</li>
+<li>
+<p>Channelization and signal phasing, based on a sorting strategy and pre-signal [02], will reduce the amount of lost time during the signal cycle</p>
+</li>
+<li>
+<p>Game theory [12] of multi-objective integer programming and CFI-Lite intersections to remove the conflicts between heavy left-turn movements and opposing through movements at the bottleneck intersection along an arterial.</p>
+</li>
+</ul>
+<h4 id="rl-methods"><a class="markdownIt-Anchor" href="#rl-methods"></a> <strong>RL methods</strong></h4>
+<ul>
+<li>Continuous-time Markov game (CTMG) [01]: based on TD method</li>
+<li>[04] A Q-Learning algorithm with reward calculated as a function of total vehicle lifetime L. (Events which lead to a reduction in lifetime such as the release of a queue of vehicles at a junction will receive a positive feedback. Events that lead to an increase in lifetime such as building up a queue will receive negative feedback.)</li>
+<li><strong>Parallel Reinforcement Learning</strong> (PRL) [05]: allows several learning agents to pool their experiences while learning concurrently on the same problem to increase exploration and reduce delay times and queue lengths. (speed up the convergence of <u>single agent</u> RL problems) PRL implementation consists of two types of agents: Master, and Slave, and a single Master agent may be used to solve a problem on its own, or with the aid of one or more Slave agents.</li>
+<li>Distributed W-learning with Deep Q-Networks (DWDQN)[06]: DWL is an algorithm that learns and utilizes the dependencies among the learning agents, and the dependencies among the control policies in order to improve the entire system performance. However, DWL has many limitations. In specific, DWL takes time to learn the optimal control policy because the reward given to the control agent is a constant value. In addition, DWL does not take into account the change of the learning rate especially when selecting an action. DWL can not estimate the best action in those sit- uations that have not been experienced during the learning phase. Applying DQN enables theses control agents to adapt efficiently in continuous traffic control scenarios with multiple optimization policies.</li>
+<li>kNN-TD learning [07], multi-agent RL [10]: designed for dynamic traffic control measures which are ramp metering (RM), variable speed limits (VSLs), but can be used as reference</li>
+<li>Inverse reinforcement learning (IRL) [08]: <strong><em>multiple</em> agents</strong> will act <em>independently</em> to achieve a common goal. Reward functions of multiple agents are learned by observing their uncoordinated behavior. A centralized controller then learns to coordinate their behavior by optimizing a weighted sum of reward functions of all the agents. Example is 4 agent-controlled intersection near highway (no detailed simulator information).</li>
+<li>Learning policies using Q-learning and neural networks [09]: how artificial neural networks can be used to approximate policies defining the speed limits. Methods are able to reduce travel time and congestion under high traffic demand in small road networks, and the policies are sufficiently robust to deal with inaccurate speed and density measurements. Q-Learning combined with Wavelet neural network (WNN) in [15].</li>
+<li>BP Neural Network based Grey Qualitative Reinforment Learning algorithm (BP-GQRL) [11]: can handle  the uncertainty in traffic flow control system and alleviate traffic congestion spread</li>
+<li>A <u>multiagent</u> reinforcement learning (MARL) algorithm based on coordination graphs [16]: solved dynamic pricing problem, but can be used as reference</li>
+</ul>
+<h4 id="simulators-systems"><a class="markdownIt-Anchor" href="#simulators-systems"></a> <strong>Simulators &amp; Systems</strong></h4>
+<ul>
+<li><a href="https://www.ptvgroup.com/en/solutions/products/ptv-vissim/" target="_blank" rel="noopener">VISSIM [02, 06, 11]</a>: <strong>microscope</strong> traffic simulation (30-dat free trial)</li>
+<li><a href="https://trlsoftware.com/products/traffic-control/scoot/" target="_blank" rel="noopener">SCOOT [03]</a>:a real-time method of signal control</li>
+<li><a href="https://www.scats.com.au/" target="_blank" rel="noopener">SCATS [03]</a>: a fully adaptive urban traffic control system that optimises traffic flow</li>
+<li><a href="http://sumo.sourceforge.net/" target="_blank" rel="noopener">SUMO [05, 09, 13, 14]</a>:  an open source, highly portable, <strong>microscopic</strong> and continuous traffic simulation package designed to handle large road networks (free). Traffic Control Interface (TraCI) package [14]</li>
+<li>METANET [09]: <strong>macroscopic</strong> model computes speed, density and flow values of highway sections in closed form, which depend on the current traffic conditions and the traffic demand volumes of the on-ramps and off-ramps. (resources not found, only manuscripts)</li>
+<li><a href="https://github.com/cathywu/flow" target="_blank" rel="noopener">Flow [13]</a>: enables users to create new traffic networks via a python in- terface, introduce autonomous controllers into the networks, and then train the controllers on high-CPU machines on the cloud via AWS EC2. <u><strong>Scripts for running their experiments and tutorial are provided.</strong></u></li>
+</ul>
+<h4 id="dataset-environment-setting"><a class="markdownIt-Anchor" href="#dataset-environment-setting"></a> <strong>Dataset &amp; Environment Setting</strong></h4>
+<ul>
+<li>A traffic survey was carried out at the intersection of Shenhua Road and Zijinghua Road in the city of Hangzhou, China, for 1h during the morning peak (7:00–8:00), evening peak (17:00–18:00), and off-peak hour (12:00–13:00) in a weekday, 2014. [02]</li>
+<li>[03] An example T-junction setting parameters in Table 1. These values can be used when designing.</li>
+<li>[04] A schematic of the High-Rd junctionin Fig 5, but no implementation detail.</li>
+<li>[06] <a href="http://www.mlit.go.jp/road/census/h27/" target="_blank" rel="noopener">“27th National road/street traffic situation survey that was conducted”</a> by the Japanese government</li>
+<li>[09] <a href="https://www.ndw.nu/pagina/en/78/database/" target="_blank" rel="noopener">NDW, the Dutch national database</a></li>
+<li>[10] <a href="https://www.anylogic.com/" target="_blank" rel="noopener">AnyLogic 2017</a>: built-in Road Traffic and Process Modelling Libraries</li>
+</ul>
+<h4 id="future-directions"><a class="markdownIt-Anchor" href="#future-directions"></a> <strong>Future Directions</strong></h4>
+<ul>
+<li>Considering several leaders and followers a Stackelberg game could be employed to represent the traffic signal control problem. [01]</li>
+<li>Explore is the possibility of using the autonomous vehicles to achieve maximum possible outflow. [13]</li>
+<li>Develop strategies that are effective in the presence of lane-changing. [13]</li>
+</ul>
 <hr>
 <!-- paper list -->
-<h4 id="t-junction-lr-intersection"><strong>T-junction &amp; LR-intersection</strong></h4>
+<h2 id="paper-list"><a class="markdownIt-Anchor" href="#paper-list"></a> Paper List</h2>
+<h4 id="t-junction-lr-intersection"><a class="markdownIt-Anchor" href="#t-junction-lr-intersection"></a> <strong>T-junction &amp; LR-intersection</strong></h4>
 <ul>
-<li><a href="https://doi.org/10.1016/j.engappai.2019.103415" target="_blank" rel="noopener">Traffic-signal control reinforcement learning approach for continuous-time Markov games</a>: used a three-way intersection as an example, RL based</li>
-<li><a href="https://journals.sagepub.com/doi/pdf/10.1177/1687814016641292" target="_blank" rel="noopener">Traffic design and signal timing of staggered intersections based on a sorting strategy</a>: an LR-type staggered intersection of Shenhua Road and Zijinghua Road in the city of Hangzhou, China, not RL based</li>
-<li><a href="https://doi.org/10.1016/j.procs.2014.05.427" target="_blank" rel="noopener">Constrained Dynamic Control of Traffic Junctions</a>: provide a competing real-time adaptive control strategy which through the use of dynamic programming, an T-junction example</li>
-<li><a href="https://doi.org/10.1016/j.engappai.2012.02.013" target="_blank" rel="noopener">An automated signalized junction controller that learns strategies by temporal difference reinforcement learning</a>: examples of T junction and LR intersection, RL based</li>
-<li><a href="https://doi.org/10.1016/j.procs.2015.05.172" target="_blank" rel="noopener">Parallel Reinforcement Learning for Traffic Signal Control</a>, <a href="https://pdfs.semanticscholar.org/f988/4c5a132568dba4817c2d772a1176a9d703a6.pdf" target="_blank" rel="noopener">Parallel Reinforcement Learning with State Action Space Partitioning</a>: T junction example, RL based</li>
-<li><a href="https://link.springer.com/chapter/10.1007/978-3-030-29894-4_28" target="_blank" rel="noopener">Urban Traffic Control Using Distributed Multi-agent Deep Reinforcement Learning</a>: RL based approach for multi agent traffic control with multi-type intersection</li>
+<li>01 <a href="https://doi.org/10.1016/j.engappai.2019.103415" target="_blank" rel="noopener">Traffic-signal control reinforcement learning approach for continuous-time Markov games</a>: used a three-way intersection as an example, RL based</li>
+<li>02 <a href="https://journals.sagepub.com/doi/pdf/10.1177/1687814016641292" target="_blank" rel="noopener">Traffic design and signal timing of staggered intersections based on a sorting strategy</a>: an LR-type staggered intersection of Shenhua Road and Zijinghua Road in the city of Hangzhou, China, not RL based</li>
+<li>03 <a href="https://doi.org/10.1016/j.procs.2014.05.427" target="_blank" rel="noopener">Constrained Dynamic Control of Traffic Junctions</a>: provide a competing real-time adaptive control strategy which through the use of dynamic programming, an T-junction example</li>
+<li>04 <a href="https://doi.org/10.1016/j.engappai.2012.02.013" target="_blank" rel="noopener">An automated signalized junction controller that learns strategies by temporal difference reinforcement learning</a>: examples of T junction and LR intersection, RL based</li>
+<li>05 <a href="https://doi.org/10.1016/j.procs.2015.05.172" target="_blank" rel="noopener">Parallel Reinforcement Learning for Traffic Signal Control</a>, <a href="https://pdfs.semanticscholar.org/f988/4c5a132568dba4817c2d772a1176a9d703a6.pdf" target="_blank" rel="noopener">Parallel Reinforcement Learning with State Action Space Partitioning</a>: T junction example, RL based</li>
+<li>06 <a href="https://link.springer.com/chapter/10.1007/978-3-030-29894-4_28" target="_blank" rel="noopener">Urban Traffic Control Using Distributed Multi-agent Deep Reinforcement Learning</a>: RL based approach for multi agent traffic control with multi-type intersection</li>
 </ul>
-<h4 id="highways"><strong>Highways</strong></h4>
+<h4 id="highways"><a class="markdownIt-Anchor" href="#highways"></a> <strong>Highways</strong></h4>
 <ul>
-<li><a href="https://pdfs.semanticscholar.org/2ffa/76209108a63aeef9df04188493db56badc79.pdf" target="_blank" rel="noopener">Decentralised reinforcement learning for ramp metering and variable speed limits on highways</a>: RL based traffic flow control on highways</li>
-<li><a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=5708862" target="_blank" rel="noopener">Multi-Agent Inverse Reinforcement Learning</a>: RL based, simulation a traffic signal domain with 4 intersection near highway</li>
-<li><a href="https://doi.org/10.1016/j.engappai.2016.01.001" target="_blank" rel="noopener">Traffic flow optimization: A reinforcement learning approach</a>: traffic flow optimization on highway example, RL based</li>
-<li><a href="http://www.scielo.org.za/scielo.php?script=sci_arttext&amp;pid=S1021-20192019000300002" target="_blank" rel="noopener">A case for the adoption of decentralised reinforcement learning for the control of traffic flow on South African highways</a>: control of traffic flow on highways, RL based</li>
+<li>07 <a href="https://pdfs.semanticscholar.org/2ffa/76209108a63aeef9df04188493db56badc79.pdf" target="_blank" rel="noopener">Decentralised reinforcement learning for ramp metering and variable speed limits on highways</a>: RL based traffic flow control on highways</li>
+<li>08 <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=5708862" target="_blank" rel="noopener">Multi-Agent Inverse Reinforcement Learning</a>: RL based, simulation a traffic signal domain with 4 intersection near highway</li>
+<li>09 <a href="https://doi.org/10.1016/j.engappai.2016.01.001" target="_blank" rel="noopener">Traffic flow optimization: A reinforcement learning approach</a>: traffic flow optimization on highway example, RL based</li>
+<li>10 <a href="http://www.scielo.org.za/scielo.php?script=sci_arttext&amp;pid=S1021-20192019000300002" target="_blank" rel="noopener">A case for the adoption of decentralised reinforcement learning for the control of traffic flow on South African highways</a>: control of traffic flow on highways, RL based</li>
 </ul>
-<h4 id="bottleneck"><strong>Bottleneck</strong></h4>
+<h4 id="bottleneck"><a class="markdownIt-Anchor" href="#bottleneck"></a> <strong>Bottleneck</strong></h4>
 <ul>
-<li><a href="https://www.scitepress.org/papers/2015/52693/52693.pdf" target="_blank" rel="noopener">Adaptive Traffic Signal Control of Bottleneck Subzone based on Grey Qualitative Reinforcement Learning Algorithm</a>: simulate a bottleneck subzone in Lianyungang using VISSIM, RL based</li>
-<li><a href="https://doi.org/10.1016/j.trc.2015.03.011" target="_blank" rel="noopener">A continuous-flow-intersection-lite design and traffic control for oversaturated bottleneck intersections</a>: not RL based</li>
-<li><a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=8569615" target="_blank" rel="noopener">Lagrangian Control through Deep-RL: Applications to Bottleneck Decongestion</a>:decongest bottleneck, RL based</li>
-<li><a href="https://arxiv.org/abs/1810.10952" target="_blank" rel="noopener">Differential Variable Speed Limits Control for Freeway Recurrent Bottlenecks via Deep Reinforcement learning</a>: speed limit control for bottleneck, RL based</li>
+<li>11 <a href="https://www.scitepress.org/papers/2015/52693/52693.pdf" target="_blank" rel="noopener">Adaptive Traffic Signal Control of Bottleneck Subzone based on Grey Qualitative Reinforcement Learning Algorithm</a>: simulate a bottleneck subzone in Lianyungang using VISSIM, RL based</li>
+<li>12 <a href="https://doi.org/10.1016/j.trc.2015.03.011" target="_blank" rel="noopener">A continuous-flow-intersection-lite design and traffic control for oversaturated bottleneck intersections</a>: not RL based</li>
+<li>13 <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=8569615" target="_blank" rel="noopener">Lagrangian Control through Deep-RL: Applications to Bottleneck Decongestion</a>:decongest bottleneck, RL based</li>
+<li>14<a href="https://arxiv.org/abs/1810.10952" target="_blank" rel="noopener">Differential Variable Speed Limits Control for Freeway Recurrent Bottlenecks via Deep Reinforcement learning</a>: speed limit control for bottleneck, RL based</li>
 </ul>
-<h4 id="others"><strong>Others</strong></h4>
+<h4 id="others"><a class="markdownIt-Anchor" href="#others"></a> <strong>Others</strong></h4>
 <ul>
-<li><a href="https://dx.doi.org/10.2991/ceie-16.2017.36" target="_blank" rel="noopener">A Fast Method to Prevent Traffic Blockage by Signal Control Based on Reinforcement Learning</a>: not focus on specific traffic environment, but using WNN for predicting traffic flow</li>
-<li><a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=8569317" target="_blank" rel="noopener">Multiagent Reinforcement Learning Algorithm for Distributed Dynamic Pricing of Managed Lanes</a>: policy design for managed lanes</li>
+<li>15 <a href="https://dx.doi.org/10.2991/ceie-16.2017.36" target="_blank" rel="noopener">A Fast Method to Prevent Traffic Blockage by Signal Control Based on Reinforcement Learning</a>: not focus on specific traffic environment, but using WNN for predicting traffic flow</li>
+<li>16 <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=8569317" target="_blank" rel="noopener">Multiagent Reinforcement Learning Algorithm for Distributed Dynamic Pricing of Managed Lanes</a>: policy design for managed lanes</li>
 </ul>
 <hr>
 <!-- flag of hidden posts -->
@@ -331,7 +396,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#literature-review---traffic-signal-control"><span class="nav-number">1.</span> <span class="nav-text">Literature Review - Traffic Signal Control</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#background"><span class="nav-number">1.0.1.</span> <span class="nav-text">Background</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#models"><span class="nav-number">1.0.2.</span> <span class="nav-text">Models</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#simulators"><span class="nav-number">1.0.3.</span> <span class="nav-text">Simulators</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dataset"><span class="nav-number">1.0.4.</span> <span class="nav-text">Dataset</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#future-directions"><span class="nav-number">1.0.5.</span> <span class="nav-text">Future Directions</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#t-junction-lr-intersection"><span class="nav-number">1.0.6.</span> <span class="nav-text">T-junction &amp; LR-intersection</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#highways"><span class="nav-number">1.0.7.</span> <span class="nav-text">Highways</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#bottleneck"><span class="nav-number">1.0.8.</span> <span class="nav-text">Bottleneck</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#others"><span class="nav-number">1.0.9.</span> <span class="nav-text">Others</span></a></li></ol></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#literature-review-traffic-signal-control"><span class="nav-number">1.</span> <span class="nav-text"> Literature Review - Traffic Signal Control</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#background"><span class="nav-number">1.0.1.</span> <span class="nav-text"> Background</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#traffic-models"><span class="nav-number">1.0.2.</span> <span class="nav-text"> Traffic Models</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rl-methods"><span class="nav-number">1.0.3.</span> <span class="nav-text"> RL methods</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#simulators-systems"><span class="nav-number">1.0.4.</span> <span class="nav-text"> Simulators &amp; Systems</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#dataset-environment-setting"><span class="nav-number">1.0.5.</span> <span class="nav-text"> Dataset &amp; Environment Setting</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#future-directions"><span class="nav-number">1.0.6.</span> <span class="nav-text"> Future Directions</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#paper-list"><span class="nav-number">2.</span> <span class="nav-text"> Paper List</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#t-junction-lr-intersection"><span class="nav-number">2.0.1.</span> <span class="nav-text"> T-junction &amp; LR-intersection</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#highways"><span class="nav-number">2.0.2.</span> <span class="nav-text"> Highways</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#bottleneck"><span class="nav-number">2.0.3.</span> <span class="nav-text"> Bottleneck</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#others"><span class="nav-number">2.0.4.</span> <span class="nav-text"> Others</span></a></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
