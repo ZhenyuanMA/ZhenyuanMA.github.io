@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Self-Learned Algorithms - 03This is my learning note about algorithms. Reference  《小浩算法》) - 动态规划系列">
+<meta name="keywords" content="algorithm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Self-Learned Algorithms - 03">
+<meta property="og:url" content="http://yoursite.com/2020/07/26/Self-Learned Algorithms - 03/index.html">
+<meta property="og:site_name" content="Zhenyuan Ma">
+<meta property="og:description" content="Self-Learned Algorithms - 03This is my learning note about algorithms. Reference  《小浩算法》) - 动态规划系列">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-07-28T14:27:12.555Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Self-Learned Algorithms - 03">
+<meta name="twitter:description" content="Self-Learned Algorithms - 03This is my learning note about algorithms. Reference  《小浩算法》) - 动态规划系列">
+
+<link rel="canonical" href="http://yoursite.com/2020/07/26/Self-Learned Algorithms - 03/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Self-Learned Algorithms - 03 | Zhenyuan Ma</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zhenyuan Ma</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right"></div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-links">
+
+    <a href="/links/" rel="section"><i class="fa fa-fw fa-sitemap"></i>links</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="default">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/26/Self-Learned Algorithms - 03/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Zhenyuan Ma">
+      <meta itemprop="description" content="Master student in McGill University 
+">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhenyuan Ma">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Self-Learned Algorithms - 03
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-07-26 14:58:59" itemprop="dateCreated datePublished" datetime="2020-07-26T14:58:59-04:00">2020-07-26</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-07-28 10:27:12" itemprop="dateModified" datetime="2020-07-28T10:27:12-04:00">2020-07-28</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Self-Learned-Algorithms-03"><a href="#Self-Learned-Algorithms-03" class="headerlink" title="Self-Learned Algorithms - 03"></a>Self-Learned Algorithms - 03</h2><p>This is my learning note about algorithms.</p>
+<p><strong>Reference</strong></p>
+<ul>
+<li><a href="[https://www.geekxh.com/0.0.%E5%AD%A6%E4%B9%A0%E9%A1%BB%E7%9F%A5/01.html](https://www.geekxh.com/0.0.学习须知/01.html">《小浩算法》</a>) - 动态规划系列</li>
+</ul>
+<hr>
+<a id="more"></a>
+<!--01-->
+<h4 id="70-爬楼梯"><a href="#70-爬楼梯" class="headerlink" title="70.爬楼梯"></a>70.爬楼梯</h4><p><a href="https://leetcode-cn.com/problems/climbing-stairs/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/climbing-stairs/</a></p>
+<p><strong>题解</strong></p>
+<ul>
+<li>很简单的dp题，不过在评论区找到很多有意思的解法</li>
+</ul>
+<p><strong>解法</strong></p>
+<ul>
+<li>递归法：容易超时，python可以加个缓存装饰器</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@functools.lru_cache(100)  # 缓存装饰器</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">climbStairs</span><span class="params">(self, n: int)</span> -&gt; int:</span></span><br><span class="line">  <span class="keyword">if</span> n == <span class="number">1</span>: <span class="keyword">return</span> <span class="number">1</span></span><br><span class="line">  <span class="keyword">if</span> n == <span class="number">2</span>: <span class="keyword">return</span> <span class="number">2</span></span><br><span class="line">  <span class="keyword">return</span> self.climbStairs(n<span class="number">-1</span>) + self.climbStairs(n<span class="number">-2</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>DP1：新建一个字典或者数组来存储以前的变量，空间复杂度O(n)</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">dp = &#123;&#125;</span><br><span class="line">dp[<span class="number">1</span>] = <span class="number">1</span></span><br><span class="line">dp[<span class="number">2</span>] = <span class="number">2</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>,n+<span class="number">1</span>):</span><br><span class="line">	dp[i] = dp[i<span class="number">-1</span>] + dp[i<span class="number">-2</span>]</span><br><span class="line"><span class="keyword">return</span> dp[n]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>DP2：只存储前两个元素，减少了空间，空间复杂度O(1)</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> n &lt; <span class="number">3</span>: <span class="keyword">return</span> n</span><br><span class="line">a, b = <span class="number">1</span>, <span class="number">2</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>,n+<span class="number">1</span>):</span><br><span class="line">  a,b = b,a + b</span><br><span class="line"><span class="keyword">return</span> b</span><br></pre></td></tr></table></figure>
+<ul>
+<li>斐波那契数列</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> math</span><br><span class="line">sqrt5=<span class="number">5</span>**<span class="number">0.5</span></span><br><span class="line">fibin=math.pow((<span class="number">1</span>+sqrt5)/<span class="number">2</span>,n+<span class="number">1</span>)-math.pow((<span class="number">1</span>-sqrt5)/<span class="number">2</span>,n+<span class="number">1</span>)</span><br><span class="line"><span class="keyword">return</span> int(fibin/sqrt5)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>面向测试用例编程（笑死）</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">5</span>,<span class="number">8</span>,<span class="number">13</span>,<span class="number">21</span>,<span class="number">34</span>,<span class="number">55</span>,<span class="number">89</span>,<span class="number">144</span>,<span class="number">233</span>,<span class="number">377</span>,<span class="number">610</span>,<span class="number">987</span>,<span class="number">1597</span>,<span class="number">2584</span>,<span class="number">4181</span>,<span class="number">6765</span>,<span class="number">10946</span>,<span class="number">17711</span>,<span class="number">28657</span>,<span class="number">46368</span>,<span class="number">75025</span>,<span class="number">121393</span>,<span class="number">196418</span>,<span class="number">317811</span>,<span class="number">514229</span>,<span class="number">832040</span>,<span class="number">1346269</span>,<span class="number">2178309</span>,<span class="number">3524578</span>,<span class="number">5702887</span>,<span class="number">9227465</span>,<span class="number">14930352</span>,<span class="number">24157817</span>,<span class="number">39088169</span>,<span class="number">63245986</span>,<span class="number">102334155</span>,<span class="number">165580141</span>,<span class="number">267914296</span>,<span class="number">433494437</span>,<span class="number">701408733</span>,<span class="number">1134903170</span>,<span class="number">1836311903</span>]</span><br><span class="line"><span class="keyword">return</span> a[n<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>利用排列组合<code>C(n,m)=n!/m!(n-m)!</code>，可参考<a href="https://leetcode-cn.com/problems/climbing-stairs/solution/bu-dong-dong-tai-gui-hua-gao-zhong-fang-fa-pai-lie/" target="_blank" rel="noopener">该解法</a></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fac</span><span class="params">(self, num)</span>:</span></span><br><span class="line">  factorial = <span class="number">1</span></span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,num + <span class="number">1</span>):</span><br><span class="line">    factorial = factorial * i</span><br><span class="line">  <span class="keyword">return</span> factorial</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">climbStairs</span><span class="params">(self, n: int)</span> -&gt; int:</span></span><br><span class="line">  twostep = <span class="number">0</span></span><br><span class="line">  maxtwo = n //<span class="number">2</span></span><br><span class="line">  j = <span class="number">0</span></span><br><span class="line">  <span class="keyword">while</span> twostep &lt;= maxtwo:</span><br><span class="line">    onestep = n - <span class="number">2</span> * twostep</span><br><span class="line">    m = onestep + twostep</span><br><span class="line">    j = j + self.fac(m)//(self.fac(onestep) * self.fac(twostep))</span><br><span class="line">    twostep += <span class="number">1</span></span><br><span class="line">  <span class="keyword">return</span> j</span><br></pre></td></tr></table></figure>
+<!--02-->
+<h4 id="53-最大子序和"><a href="#53-最大子序和" class="headerlink" title="53.最大子序和"></a>53.最大子序和</h4><p><a href="https://leetcode-cn.com/problems/maximum-subarray/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/maximum-subarray/</a></p>
+<p><strong>题解</strong></p>
+<ul>
+<li>设定状态<code>dp[i]</code>为以<code>nums[i]</code>为结尾的连续子数组最大和</li>
+<li>结果为<code>i</code>的情况下<code>nums[i]</code>必定为正数</li>
+<li>如果<code>dp[i-1]</code>为负数，那么<code>dp[i]=nums[i]</code></li>
+</ul>
+<p><strong>解法</strong></p>
+<ul>
+<li>一边遍历一边计算：<code>nums[i-1]</code>并不是数组前一项的意思，而是到前一项为止的最大子序和，和0比较是因为只要大于0，就可以相加构造最大子序和。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, len(nums)):</span><br><span class="line">	nums[i] = nums[i] + max(nums[i<span class="number">-1</span>], <span class="number">0</span>)</span><br><span class="line"><span class="keyword">return</span> max(nums)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>正经dp</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">dp = nums[:]</span><br><span class="line">res = dp[<span class="number">0</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, len(nums)):</span><br><span class="line">	dp[i] = max(nums[i], nums[i] + dp[i - <span class="number">1</span>])</span><br><span class="line">	res = max(res, dp[i])</span><br><span class="line"><span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+<p>简化版：只用一个值保存结果</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pre = nums[<span class="number">0</span>]</span><br><span class="line">res = pre</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>, len(nums)):</span><br><span class="line">	dp[i] = max(nums[i], nums[i] + pre)</span><br><span class="line">	res = max(res, pre)</span><br><span class="line"><span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+<!--03-->
+<h4 id="300-最长上升子序列"><a href="#300-最长上升子序列" class="headerlink" title="300.最长上升子序列"></a>300.最长上升子序列</h4><p><a href="https://leetcode-cn.com/problems/longest-increasing-subsequence/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/longest-increasing-subsequence/</a></p>
+<p><strong>题解</strong></p>
+<ul>
+<li>LIS可能是连续的，也可能是非连续的（不严格审题以为$O(N)$能解决的）</li>
+<li>“上升”是“严格上升”，类似于 <code>[2, 3, 3, 6, 7]</code> 这样的子序列是不符合要求的</li>
+</ul>
+<p><strong>解法</strong></p>
+<ul>
+<li>动态规划：<code>dp[i]</code>的值代表以<code>nums[i]</code> 为结尾的最长子序列长度，每轮计算新<code>dp[i]</code>时，遍历<code>[0,i)</code>列表区间。时间复杂度$O(N^2)$。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> nums: <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">dp = [<span class="number">1</span>] * len(nums)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">  <span class="keyword">for</span> j <span class="keyword">in</span> range(i):</span><br><span class="line">    <span class="keyword">if</span> nums[j] &lt; nums[i]: <span class="comment"># 如果要求非严格递增，将此行 '&lt;' 改为 '&lt;=' 即可。</span></span><br><span class="line">    	dp[i] = max(dp[i], dp[j] + <span class="number">1</span>)</span><br><span class="line"><span class="keyword">return</span> max(dp)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><a href="https://leetcode-cn.com/problems/longest-increasing-subsequence/solution/zui-chang-shang-sheng-zi-xu-lie-dong-tai-gui-hua-2/" target="_blank" rel="noopener">二分查找</a>：是否可以通过重新设计状态定义，使整个<code>dp</code>为一个排序列表；这样在计算每个<code>dp[k]</code>时，就可以通过二分法遍历<code>[0,k)</code>区间元素，将此部分复杂度由$O(N)$降至$O(logN)$。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">tails, res = [<span class="number">0</span>] * len(nums), <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> num <span class="keyword">in</span> nums:</span><br><span class="line">	i, j = <span class="number">0</span>, res</span><br><span class="line">  <span class="keyword">while</span> i &lt; j:</span><br><span class="line">    m = (i + j) // <span class="number">2</span></span><br><span class="line">    <span class="keyword">if</span> tails[m] &lt; num: i = m + <span class="number">1</span> <span class="comment"># 如果要求非严格递增，将此行 '&lt;' 改为 '&lt;=' 即可。</span></span><br><span class="line">    <span class="keyword">else</span>: j = m</span><br><span class="line">  tails[i] = num</span><br><span class="line">  <span class="keyword">if</span> j == res: res += <span class="number">1</span></span><br><span class="line"><span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+<p>二分查找的运行时间居然比普通动态规划的快20倍，惊了！</p>
+<!--04-->
+<h4 id="120-三角形最小路径和"><a href="#120-三角形最小路径和" class="headerlink" title="120.三角形最小路径和"></a>120.三角形最小路径和</h4><p><a href="https://leetcode-cn.com/problems/triangle/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/triangle/</a></p>
+<p><strong>题解</strong></p>
+<ul>
+<li>常规动态规划题目，需要考虑一下边界的问题。从上到下和从下到上都可以做。</li>
+</ul>
+<p><strong>解法</strong></p>
+<ul>
+<li>运气解法（又名reinforcement learning）（笑死）：随机的瞎走，走上个10000遍，只保留步数最小的那一个</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">sum = <span class="number">9999999</span></span><br><span class="line">运气指数 = <span class="number">10000</span> <span class="comment">#这个看你的运气了，运气好1次通过，运气不好99999999都过不了</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(运气指数):</span><br><span class="line">  step = <span class="number">0</span></span><br><span class="line">  pos = <span class="number">0</span></span><br><span class="line">  <span class="keyword">for</span> j <span class="keyword">in</span> range(len(t)):</span><br><span class="line">    step += t[j][pos]</span><br><span class="line">    pos += random.choice([<span class="number">0</span>,<span class="number">1</span>]) <span class="comment">#随机的选择下一次的方向</span></span><br><span class="line">  sum = min(step,sum)</span><br><span class="line"><span class="keyword">return</span> sum</span><br></pre></td></tr></table></figure>
+<ul>
+<li>原地修改自底而上</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(triangle) - <span class="number">1</span>, <span class="number">0</span>, <span class="number">-1</span>):</span><br><span class="line">  <span class="keyword">for</span> j <span class="keyword">in</span> range(i):</span><br><span class="line">  	triangle[i - <span class="number">1</span>][j] += min(triangle[i][j], triangle[i][j + <span class="number">1</span>])</span><br><span class="line"><span class="keyword">return</span> triangle[<span class="number">0</span>][<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>自上而下：状态转移方程中的<code>dp[i-1][j-1]</code>中的<code>j-1</code>，当<code>j=0</code>时，其效果等同于<code>dp[i-1][-1]</code>，即无穷大值<code>float(&#39;inf&#39;)</code>；同理，<code>j=i</code>时<code>dp[i-1][j]</code>也表示无穷大值，因此不需要再进行边界判别。</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">dp = [[float(<span class="string">'inf'</span>)] * len(triangle) <span class="keyword">for</span> _ <span class="keyword">in</span> range(len(triangle))]</span><br><span class="line">dp[<span class="number">0</span>][<span class="number">0</span>] = triangle[<span class="number">0</span>][<span class="number">0</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">1</span>,len(triangle)):</span><br><span class="line">  <span class="keyword">for</span> j <span class="keyword">in</span> range(i+<span class="number">1</span>):            </span><br><span class="line">    dp[i][j] = min(dp[i<span class="number">-1</span>][j<span class="number">-1</span>]+triangle[i][j], dp[i<span class="number">-1</span>][j]+triangle[i][j])</span><br><span class="line"><span class="keyword">return</span> min(dp[<span class="number">-1</span>])</span><br></pre></td></tr></table></figure>
+<!--05-->
+<h4 id="64-最小路径和"><a href="#64-最小路径和" class="headerlink" title="64.最小路径和"></a>64.最小路径和</h4><p><a href="https://leetcode-cn.com/problems/minimum-path-sum/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/minimum-path-sum/</a></p>
+<p><strong>题解</strong></p>
+<ul>
+<li>和上一道题差不多，状态转移也只有两个。</li>
+<li>（思考题）路径和类问题和之前的子序列类问题有何区别？</li>
+</ul>
+<p><strong>解法</strong></p>
+<ul>
+<li>在原数组上进行记忆</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(grid)):</span><br><span class="line">  <span class="keyword">for</span> j <span class="keyword">in</span> range(len(grid[<span class="number">0</span>])):</span><br><span class="line">    <span class="keyword">if</span> i==<span class="number">0</span> <span class="keyword">and</span> j==<span class="number">0</span>: <span class="comment">#起点</span></span><br><span class="line">    	<span class="keyword">continue</span></span><br><span class="line">    <span class="keyword">elif</span> i==<span class="number">0</span>: <span class="comment">#左边缘</span></span><br><span class="line">    	grid[i][j] = grid[i][j<span class="number">-1</span>] + grid[i][j]</span><br><span class="line">    <span class="keyword">elif</span> j==<span class="number">0</span>: <span class="comment">#上边缘</span></span><br><span class="line">    	grid[i][j] = grid[i<span class="number">-1</span>][j] + grid[i][j]</span><br><span class="line">    <span class="keyword">else</span>: <span class="comment">#普遍情况</span></span><br><span class="line">    	grid[i][j] = min(grid[i<span class="number">-1</span>][j], grid[i][j<span class="number">-1</span>]) + grid[i][j]</span><br><span class="line"><span class="keyword">return</span> grid[<span class="number">-1</span>][<span class="number">-1</span>]</span><br></pre></td></tr></table></figure>
+<ul>
+<li>反向动态规划：边界条件与正向相似</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">x = len(grid[<span class="number">0</span>])</span><br><span class="line">y = len(grid)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(x<span class="number">-2</span>, <span class="number">-1</span>, <span class="number">-1</span>):</span><br><span class="line">	grid[<span class="number">-1</span>][i] += grid[<span class="number">-1</span>][i+<span class="number">1</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(y<span class="number">-2</span>, <span class="number">-1</span>, <span class="number">-1</span>):</span><br><span class="line">	grid[i][<span class="number">-1</span>] += grid[i+<span class="number">1</span>][<span class="number">-1</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(y<span class="number">-2</span>, <span class="number">-1</span>, <span class="number">-1</span>):</span><br><span class="line">  <span class="keyword">for</span> j <span class="keyword">in</span> range(x<span class="number">-2</span>, <span class="number">-1</span>, <span class="number">-1</span>):</span><br><span class="line">  	grid[i][j] += min(grid[i][j+<span class="number">1</span>], grid[i+<span class="number">1</span>][j])</span><br><span class="line"><span class="keyword">return</span> grid[<span class="number">0</span>][<span class="number">0</span>]</span><br></pre></td></tr></table></figure>
+<ul>
+<li><a href="https://leetcode-cn.com/problems/minimum-path-sum/solution/python3-dong-tai-gui-hua-he-shen-du-you-xian-sou-s/" target="_blank" rel="noopener">递归dfs</a></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">dct = &#123;&#125;</span><br><span class="line">xx = len(grid)</span><br><span class="line">yy = len(grid[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dfs</span><span class="params">(x: int, y: int)</span> -&gt; int:</span></span><br><span class="line">  <span class="keyword">if</span> (x, y) <span class="keyword">in</span> dct:</span><br><span class="line">  	<span class="keyword">return</span> dct[(x, y)]</span><br><span class="line">  <span class="keyword">if</span> x == xx <span class="keyword">or</span> y == yy:</span><br><span class="line">  	<span class="keyword">return</span> float(<span class="string">"inf"</span>)</span><br><span class="line">  p = min(dfs(x+<span class="number">1</span>, y), dfs(x, y+<span class="number">1</span>))</span><br><span class="line">  dct[(x, y)] = grid[x][y]+(<span class="number">0</span> <span class="keyword">if</span> p == float(<span class="string">"inf"</span>) <span class="keyword">else</span> p)</span><br><span class="line">  <span class="keyword">return</span> dct[(x, y)]</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> dfs(<span class="number">0</span>, <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>[递归bfs][<a href="https://leetcode-cn.com/problems/minimum-path-sum/solution/python3-dong-tai-gui-hua-he-shen-du-you-xian-sou-s/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/minimum-path-sum/solution/python3-dong-tai-gui-hua-he-shen-du-you-xian-sou-s/</a>]</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">dct = defaultdict(<span class="keyword">lambda</span>: float(<span class="string">"inf"</span>))</span><br><span class="line">xx = len(grid)</span><br><span class="line">yy = len(grid[<span class="number">0</span>])</span><br><span class="line">deq = deque([(xx<span class="number">-1</span>, yy<span class="number">-1</span>)])</span><br><span class="line"><span class="keyword">while</span> deq:</span><br><span class="line">  x, y = deq.popleft()</span><br><span class="line">  <span class="keyword">if</span> (x, y) <span class="keyword">in</span> dct:</span><br><span class="line">  	<span class="keyword">continue</span></span><br><span class="line">  <span class="keyword">if</span> x &lt; <span class="number">0</span> <span class="keyword">or</span> y &lt; <span class="number">0</span>:</span><br><span class="line">  	<span class="keyword">continue</span></span><br><span class="line">  p = min(dct[(x+<span class="number">1</span>, y)], dct[(x, y+<span class="number">1</span>)])</span><br><span class="line">  deq.extend([(x<span class="number">-1</span>, y), (x, y<span class="number">-1</span>)])</span><br><span class="line">  dct[(x, y)] = grid[x][y]+(<span class="number">0</span> <span class="keyword">if</span> p == float(<span class="string">"inf"</span>) <span class="keyword">else</span> p)</span><br><span class="line"><span class="keyword">return</span> dct[(<span class="number">0</span>, <span class="number">0</span>)]</span><br></pre></td></tr></table></figure>
+<p>两种记忆化搜索还需要再详细思考一下</p>
+<!--06-->
+<h4 id="198-打家劫舍"><a href="#198-打家劫舍" class="headerlink" title="198.打家劫舍"></a>198.打家劫舍</h4><p><a href="https://leetcode-cn.com/problems/house-robber/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/house-robber/</a></p>
+<p><strong>题解</strong></p>
+<ul>
+<li>失业程序员转职做小偷（？）</li>
+</ul>
+<p><strong>解法</strong></p>
+<ul>
+<li>动态规划</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> len(nums) == <span class="number">0</span>: <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">dp = [<span class="number">0</span>] * (len(nums) + <span class="number">1</span>)</span><br><span class="line">dp[<span class="number">1</span>] = nums[<span class="number">0</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">2</span>, N+<span class="number">1</span>):</span><br><span class="line">	dp[i] = max(dp[i<span class="number">-1</span>], dp[i<span class="number">-2</span>]+nums[i<span class="number">-1</span>])</span><br><span class="line"><span class="keyword">return</span> dp[N]</span><br></pre></td></tr></table></figure>
+<p>空间优化（奇怪的是时间减半但内存消耗增加了）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">prev = <span class="number">0</span></span><br><span class="line">curr = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> nums:</span><br><span class="line">  <span class="comment"># 循环开始时，curr 表示 dp[k-1]，prev 表示 dp[k-2]</span></span><br><span class="line">  <span class="comment"># dp[k] = max&#123; dp[k-1], dp[k-2] + i &#125;</span></span><br><span class="line">  prev, curr = curr, max(curr, prev + i)</span><br><span class="line">  <span class="comment"># 循环结束时，curr 表示 dp[k]，prev 表示 dp[k-1]</span></span><br><span class="line"><span class="keyword">return</span> curr</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tag/algorithm/" rel="tag"># algorithm</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/25/Self-Learned Algorithms - 02/" rel="prev" title="Self-Learned Algorithms - 02">
+      <i class="fa fa-chevron-left"></i> Self-Learned Algorithms - 02
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/07/28/Self-Learned Algorithms - 04/" rel="next" title="Self-Learned Algorithms - 04">
+      Self-Learned Algorithms - 04 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Self-Learned-Algorithms-03"><span class="nav-number">1.</span> <span class="nav-text">Self-Learned Algorithms - 03</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#70-爬楼梯"><span class="nav-number">1.0.1.</span> <span class="nav-text">70.爬楼梯</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#53-最大子序和"><span class="nav-number">1.0.2.</span> <span class="nav-text">53.最大子序和</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#300-最长上升子序列"><span class="nav-number">1.0.3.</span> <span class="nav-text">300.最长上升子序列</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#120-三角形最小路径和"><span class="nav-number">1.0.4.</span> <span class="nav-text">120.三角形最小路径和</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#64-最小路径和"><span class="nav-number">1.0.5.</span> <span class="nav-text">64.最小路径和</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#198-打家劫舍"><span class="nav-number">1.0.6.</span> <span class="nav-text">198.打家劫舍</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Zhenyuan Ma"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Zhenyuan Ma</p>
+  <div class="site-description" itemprop="description">Master student in McGill University 
+</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ZhenyuanMa" title="GitHub → https://github.com/ZhenyuanMa" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhenyuan.ma@mail.mcgill.ca" title="E-Mail → mailto:zhenyuan.ma@mail.mcgill.ca" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhenyuan Ma</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>

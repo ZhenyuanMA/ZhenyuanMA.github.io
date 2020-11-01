@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Self-Learned Algorithms - 02This is my learning note about algorithms. Reference  《小浩算法》) - 链表系列">
+<meta name="keywords" content="algorithm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Self-Learned Algorithms - 02">
+<meta property="og:url" content="http://yoursite.com/2020/07/25/Self-Learned Algorithms - 02/index.html">
+<meta property="og:site_name" content="Zhenyuan Ma">
+<meta property="og:description" content="Self-Learned Algorithms - 02This is my learning note about algorithms. Reference  《小浩算法》) - 链表系列">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-07-25T23:44:07.679Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Self-Learned Algorithms - 02">
+<meta name="twitter:description" content="Self-Learned Algorithms - 02This is my learning note about algorithms. Reference  《小浩算法》) - 链表系列">
+
+<link rel="canonical" href="http://yoursite.com/2020/07/25/Self-Learned Algorithms - 02/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Self-Learned Algorithms - 02 | Zhenyuan Ma</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zhenyuan Ma</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right"></div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-links">
+
+    <a href="/links/" rel="section"><i class="fa fa-fw fa-sitemap"></i>links</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="default">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/25/Self-Learned Algorithms - 02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Zhenyuan Ma">
+      <meta itemprop="description" content="Master student in McGill University 
+">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhenyuan Ma">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Self-Learned Algorithms - 02
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-07-25 13:11:18 / Modified: 19:44:07" itemprop="dateCreated datePublished" datetime="2020-07-25T13:11:18-04:00">2020-07-25</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Self-Learned-Algorithms-02"><a href="#Self-Learned-Algorithms-02" class="headerlink" title="Self-Learned Algorithms - 02"></a>Self-Learned Algorithms - 02</h2><p>This is my learning note about algorithms.</p>
+<p><strong>Reference</strong></p>
+<ul>
+<li><a href="[https://www.geekxh.com/0.0.%E5%AD%A6%E4%B9%A0%E9%A1%BB%E7%9F%A5/01.html](https://www.geekxh.com/0.0.学习须知/01.html">《小浩算法》</a>) - 链表系列</li>
+</ul>
+<hr>
+<a id="more"></a>
+<!--01-->
+<h4 id="19-删除链表倒数第N个节点"><a href="#19-删除链表倒数第N个节点" class="headerlink" title="19.删除链表倒数第N个节点"></a>19.删除链表倒数第N个节点</h4><p><a href="https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/remove-nth-node-from-end-of-list/</a></p>
+<p><strong>题解</strong></p>
+<ul>
+<li>哨兵节点的应用：一个附加在原链表最前面用来简化边界条件的附加节点，它的值域不存储任何东西，只是为了操作方便而引入。</li>
+<li>要求一次遍历？那么就不存在第一次遍历找到链表长度，然后第二次遍历找到该节点。</li>
+</ul>
+<p><strong>解法</strong></p>
+<ul>
+<li>双指针</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Node = ListNode(<span class="literal">None</span>)</span><br><span class="line">Node.next = head</span><br><span class="line">fast,slow = Node,Node</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">	fast = fast.next</span><br><span class="line"><span class="keyword">while</span> fast.next != <span class="literal">None</span>:</span><br><span class="line">	fast = fast.next</span><br><span class="line">	slow = slow.next</span><br><span class="line">slow.next = slow.next.next</span><br><span class="line"><span class="keyword">return</span> Node.next</span><br></pre></td></tr></table></figure>
+<ul>
+<li>递归</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">global</span> i </span><br><span class="line"><span class="keyword">if</span> head <span class="keyword">is</span> <span class="literal">None</span>:</span><br><span class="line">  i=<span class="number">0</span></span><br><span class="line">  <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">head.next = self.removeNthFromEnd(head.next,n)</span><br><span class="line">i+=<span class="number">1</span></span><br><span class="line"><span class="keyword">return</span> head.next <span class="keyword">if</span> i==n <span class="keyword">else</span> head</span><br></pre></td></tr></table></figure>
+<p>递归的好处在于无论删除哪一个节点都可以返回正确的节点。（那么除了利用<code>global i</code>是否还有其他方法可以处理递归的次数呢，比如直接处理<code>n</code>？）</p>
+<p>（递归的内存消耗比双指针稍高）</p>
+<!--02-->
+<h4 id="21-合并两个有序链表"><a href="#21-合并两个有序链表" class="headerlink" title="21.合并两个有序链表"></a>21.合并两个有序链表</h4><p><a href="https://leetcode-cn.com/problems/merge-two-sorted-lists" target="_blank" rel="noopener">https://leetcode-cn.com/problems/merge-two-sorted-lists</a></p>
+<p><strong>题解</strong></p>
+<ul>
+<li>设置一个哨兵节点，然后指向两个剩余链表中较小的一个</li>
+</ul>
+<p><strong>解法</strong></p>
+<ul>
+<li>双指针</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">pre = ListNode(<span class="literal">None</span>)</span><br><span class="line">node = pre</span><br><span class="line"><span class="keyword">while</span> l1 <span class="keyword">and</span> l2:</span><br><span class="line">  <span class="keyword">if</span> l1.val &lt; l2.val:</span><br><span class="line">    node.next, l1 = l1, l1.next</span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">    node.next, l2 = l2, l2.next</span><br><span class="line">  node = node.next</span><br><span class="line"><span class="keyword">if</span> l1:</span><br><span class="line">	node.next = l1</span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">	node.next = l2</span><br><span class="line"><span class="keyword">return</span> pre.next</span><br></pre></td></tr></table></figure>
+<ul>
+<li>递归法</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> l1 <span class="keyword">and</span> l2:</span><br><span class="line">  <span class="keyword">if</span> l1.val &gt; l2.val: l1, l2 = l2, l1</span><br><span class="line">  l1.next = self.mergeTwoLists(l1.next, l2)</span><br><span class="line"><span class="keyword">return</span> l1 <span class="keyword">or</span> l2</span><br></pre></td></tr></table></figure>
+<p>最后的<code>return l1 or l2</code>是防止<code>l1</code>为空、<code>l2</code>不为空时输出为空的情况发生。</p>
+<p><strong>备注：</strong></p>
+<p>在 Python 中，<code>and</code>和 <code>or</code>都有提前截至运算的功能。</p>
+<p><code>and</code>：如果<code>and</code>前面的表达式已经为<code>False</code>，那么<code>and</code>之后的表达式将被 跳过，返回左表达式结果<br><code>or</code>：如果<code>or</code>前面的表达式已经为<code>True</code>，那么<code>or</code>之后的表达式将被跳过，直接返回左表达式的结果<br>例子：<code>[] and 7</code> 等于 <code>[]</code></p>
+<!--03-->
+<h4 id="141-环形链表"><a href="#141-环形链表" class="headerlink" title="141.环形链表"></a>141.环形链表</h4><p><a href="https://leetcode-cn.com/problems/linked-list-cycle" target="_blank" rel="noopener">https://leetcode-cn.com/problems/linked-list-cycle</a></p>
+<p><strong>题解</strong></p>
+<ul>
+<li>题目看起来很简单，但是中文版的描述也讲了很多无关紧要的东西，所以评论区才会出现各种奇奇怪怪的解法（？）</li>
+</ul>
+<p><strong>解法</strong></p>
+<ul>
+<li>哈希表：记录访问过的位置</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">dic = &#123;&#125;</span><br><span class="line">node = head</span><br><span class="line"><span class="keyword">while</span>(node):</span><br><span class="line">  <span class="keyword">if</span>(dic.get(node,<span class="number">0</span>) != <span class="number">0</span>):</span><br><span class="line">  	<span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">  	dic[node] = <span class="number">1</span></span><br><span class="line">  node = node.next</span><br><span class="line"><span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>列表：利用列表寻找是否存在重复的对象</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> head:</span><br><span class="line">	<span class="keyword">return</span> head</span><br><span class="line">m = []</span><br><span class="line"><span class="keyword">while</span> head:</span><br><span class="line">  <span class="keyword">if</span> head <span class="keyword">in</span> m:</span><br><span class="line">  	<span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">  m.append(head)</span><br><span class="line">  head = head.next</span><br><span class="line"><span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>双指针：定义一个快指针和慢指针,每次快指针走2步，慢指针走1步，判断快指针是否与慢指针重逢。可以有效的减少空间复杂度和时间复杂度的匹配次数</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">slow = fast = head</span><br><span class="line"><span class="comment"># if not head：  # 没必要这样写可以加入while循环判断更简洁</span></span><br><span class="line"><span class="comment">#     return False</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span> fast <span class="keyword">and</span> fast.next:  <span class="comment"># 防止head为空和出现空指针的next的情况</span></span><br><span class="line">  slow = slow.next</span><br><span class="line">  fast = fast.next.next</span><br><span class="line">  <span class="keyword">if</span> slow <span class="keyword">is</span> fast:</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> <span class="literal">False</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>奇奇怪怪的神仙解法（不能学习）</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 把访问过的值都进行赋值，如果链表完全成环，则必会出现重复值</span></span><br><span class="line"><span class="keyword">while</span> head:</span><br><span class="line">  <span class="keyword">if</span> head.val == <span class="string">'bjfuvth'</span>: <span class="comment">#其实什么字符都可以，越奇葩越好</span></span><br><span class="line">  	<span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">  <span class="keyword">else</span>:</span><br><span class="line">  	head.val = <span class="string">'bjfuvth'</span></span><br><span class="line">  head = head.next</span><br><span class="line"><span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 或者递归也可以</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">not</span> head:</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> head == <span class="number">0xcafebabe</span>:</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line"></span><br><span class="line">head.val = <span class="number">0xcafebabe</span></span><br><span class="line"><span class="keyword">return</span> self.hasCycle(head.next)</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tag/algorithm/" rel="tag"># algorithm</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/07/22/Self-Learned Algorithms - 01/" rel="prev" title="Self-Learned Algorithms - 01">
+      <i class="fa fa-chevron-left"></i> Self-Learned Algorithms - 01
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/07/26/Self-Learned Algorithms - 03/" rel="next" title="Self-Learned Algorithms - 03">
+      Self-Learned Algorithms - 03 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Self-Learned-Algorithms-02"><span class="nav-number">1.</span> <span class="nav-text">Self-Learned Algorithms - 02</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#19-删除链表倒数第N个节点"><span class="nav-number">1.0.1.</span> <span class="nav-text">19.删除链表倒数第N个节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#21-合并两个有序链表"><span class="nav-number">1.0.2.</span> <span class="nav-text">21.合并两个有序链表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#141-环形链表"><span class="nav-number">1.0.3.</span> <span class="nav-text">141.环形链表</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Zhenyuan Ma"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Zhenyuan Ma</p>
+  <div class="site-description" itemprop="description">Master student in McGill University 
+</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ZhenyuanMa" title="GitHub → https://github.com/ZhenyuanMa" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhenyuan.ma@mail.mcgill.ca" title="E-Mail → mailto:zhenyuan.ma@mail.mcgill.ca" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhenyuan Ma</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>

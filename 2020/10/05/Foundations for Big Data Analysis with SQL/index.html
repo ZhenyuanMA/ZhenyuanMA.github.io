@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Foundations for Big Data Analysis with SQLThis is my learning note of coursera course: [Foundations for Big Data Analysis with SQL][https://www.coursera.org/learn/foundations-big-data-analysis-sql/].">
+<meta name="keywords" content="SQL,big data analysis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Foundations for Big Data Analysis with SQL">
+<meta property="og:url" content="http://yoursite.com/2020/10/05/Foundations for Big Data Analysis with SQL/index.html">
+<meta property="og:site_name" content="Zhenyuan Ma">
+<meta property="og:description" content="Foundations for Big Data Analysis with SQLThis is my learning note of coursera course: [Foundations for Big Data Analysis with SQL][https://www.coursera.org/learn/foundations-big-data-analysis-sql/].">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-10-07T19:19:35.154Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Foundations for Big Data Analysis with SQL">
+<meta name="twitter:description" content="Foundations for Big Data Analysis with SQLThis is my learning note of coursera course: [Foundations for Big Data Analysis with SQL][https://www.coursera.org/learn/foundations-big-data-analysis-sql/].">
+
+<link rel="canonical" href="http://yoursite.com/2020/10/05/Foundations for Big Data Analysis with SQL/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Foundations for Big Data Analysis with SQL | Zhenyuan Ma</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zhenyuan Ma</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right"></div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-links">
+
+    <a href="/links/" rel="section"><i class="fa fa-fw fa-sitemap"></i>links</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="default">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/05/Foundations for Big Data Analysis with SQL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Zhenyuan Ma">
+      <meta itemprop="description" content="Master student in McGill University 
+">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhenyuan Ma">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Foundations for Big Data Analysis with SQL
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-10-05 16:11:34" itemprop="dateCreated datePublished" datetime="2020-10-05T16:11:34-04:00">2020-10-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-10-07 15:19:35" itemprop="dateModified" datetime="2020-10-07T15:19:35-04:00">2020-10-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/Big-Data-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Big Data Learning</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Foundations-for-Big-Data-Analysis-with-SQL"><a href="#Foundations-for-Big-Data-Analysis-with-SQL" class="headerlink" title="Foundations for Big Data Analysis with SQL"></a>Foundations for Big Data Analysis with SQL</h2><p>This is my learning note of coursera course: [Foundations for Big Data Analysis with SQL][<a href="https://www.coursera.org/learn/foundations-big-data-analysis-sql/" target="_blank" rel="noopener">https://www.coursera.org/learn/foundations-big-data-analysis-sql/</a>].</p>
+<hr>
+<a id="more"></a>
+<!--01-->
+<h4 id="Week-1-Data-and-Databases"><a href="#Week-1-Data-and-Databases" class="headerlink" title="Week 1: Data and Databases"></a>Week 1: Data and Databases</h4><p><strong>What is Data?</strong></p>
+<ul>
+<li>Digital data: information that can be transmitted, stored, and processed using modern digital technologies (comparing to analog data)</li>
+<li>Data is a representation of something that captures some features and ignores others.</li>
+</ul>
+<p><strong>Why Organize Data?</strong></p>
+<ul>
+<li>the organization of data has a major impact on how easily you can use the data to answer questions</li>
+</ul>
+<p><strong>What Does a DBMS Do?</strong></p>
+<ul>
+<li>design the kinds of data your database will hold (<u>design</u>), change what data you have in your database (update), get data out of it (<u>retrieve</u>), and manage who has access to different parts of your data (<u>manage</u>)</li>
+</ul>
+<p><strong>Relational Databases and SQL</strong></p>
+<ul>
+<li>Different language types: DDL, DML, DQL, DCL (Data Definition/Manipulation/Query Control Language)</li>
+</ul>
+<p><strong>Reference</strong></p>
+<ul>
+<li>[E.F. Codd, “A relational model of data for large shared data banks”][<a href="https://dl.acm.org/citation.cfm?doid=362384.362685" target="_blank" rel="noopener">https://dl.acm.org/citation.cfm?doid=362384.362685</a>]</li>
+<li>[Donald D. Chamberlain, “Early History of SQL”][<a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=6359709" target="_blank" rel="noopener">https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&amp;arnumber=6359709</a>]</li>
+</ul>
+<!--02-->
+<h4 id="Week-2-Relational-Databases-and-SQL"><a href="#Week-2-Relational-Databases-and-SQL" class="headerlink" title="Week 2: Relational Databases and SQL"></a>Week 2: Relational Databases and SQL</h4><p><strong>Data Types</strong></p>
+<ul>
+<li>BLOB (Binary Large Object) can store large binary data like a photograph, video, audio, or other media file</li>
+<li>CLOB (Character Large Object) can store large character data like an HTML web page, or a complete book</li>
+</ul>
+<p><strong>Primary Keys and Foreign Keys</strong></p>
+<ul>
+<li>primary key is immutable (no change allowed)</li>
+<li>each column of the compound key is itself a foreign key: the columns refer to the primary keys in the other tables</li>
+</ul>
+<p><strong>Database Design</strong></p>
+<ul>
+<li>Database normalization: is a strategy whereby you design each table so that it obeys certain organizational conditions or rules (e.g. 1NF, 2NF, …) (business community generally accepts 3NF)</li>
+<li>3NF: primary key; atomic columns, no repeating groups, non-key columds describe only the whole key, no derived columns</li>
+<li>Denormalization: the strategy of denormalization is to consciously, deliberately “break” one or more of the rules of database normalization in your design</li>
+<li>Denormalization examples: allowing duplicate rows, pre-joined tables, derived columns, summary tables</li>
+<li>Differences: data anomalies, ecforcing data structure, size, SELECT speed</li>
+<li>Reference: <a href="http://www.bkent.net/Doc/simple5.htm" target="_blank" rel="noopener">A Simple Guide to Five Normal Forms in Relational Database Theory</a></li>
+</ul>
+<p><strong>ACID</strong></p>
+<ul>
+<li>Atomicity, Consistency, Isolation, Durability</li>
+</ul>
+<!--03-->
+<h4 id="Week-3-Big-Data"><a href="#Week-3-Big-Data" class="headerlink" title="Week 3: Big Data"></a>Week 3: Big Data</h4><p><strong>Volumn</strong></p>
+<ul>
+<li><p>what is the minimum volume for big data? 30TB?</p>
+</li>
+<li><p>The big data platform Apache Hadoop includes </p>
+<p>a file system called the Hadoop Distributed File System, or HDFS. In HDFS, a single block is usually of size 128 megabytes.</p>
+</li>
+<li><p>Do distributed process, parallel reads</p>
+</li>
+</ul>
+<p><strong>Variety (and Velocity)</strong></p>
+<ul>
+<li>can classify digital data as structured, semi-structured, or unstructured (no strict boundaries)</li>
+<li>structure data: data that conforms to a set schema</li>
+<li>unstructured data: data without clear, definite structure (e.g. natural language text)</li>
+<li>semi-structured data: a record are tagged, but there is no definite schema that all records are guaranteed to meet</li>
+<li>The velocity of data—the speed at which data is generated in modern systems—is another dimension that has grown notably in recent years with the rise of the internet, especially social media.</li>
+</ul>
+<p><strong>Big Data Systems</strong></p>
+<ul>
+<li>RDBMS strengths: enforcing business rules, transactions (OLTP), structure, many good choices, strong with small or medium data, simple security controls, fast (at reasonable scale), lots of tools and solutions</li>
+<li>RDBMS limitations: schema on write, high cost of storage, weak support for unstructured data, difficulty of distributed transactions</li>
+</ul>
+<p><strong>SQL and Data</strong></p>
+<ul>
+<li>Queries on structured data:<ul>
+<li>combine records from multiple tables</li>
+<li>group records by categorical values or ranges</li>
+<li>compute counts or summary terms on any groups</li>
+<li>sort on any resulting values</li>
+</ul>
+</li>
+</ul>
+<!--04-->
+<h4 id="Week-4-SQL-Tools-for-Big-Data-Analysis"><a href="#Week-4-SQL-Tools-for-Big-Data-Analysis" class="headerlink" title="Week 4: SQL Tools for Big Data Analysis"></a>Week 4: SQL Tools for Big Data Analysis</h4><p><strong>NoSQL</strong></p>
+<ul>
+<li>they provide simple DML and query commands and they physically organize records by a specific lookup key. Records can be stored in massive numbers and then a record can be found rapidly by its lookup key, but not easily by other values in the record</li>
+<li>These systems are best for unstructured or semi-structured data with only a few, well-defined access patterns.</li>
+</ul>
+<p><strong>Non-transactional, Structured Systems</strong></p>
+<ul>
+<li>between NoSQL and full RDBMS systems</li>
+<li>e.g. Kudu. Enforcing primary key but not foreign key constraints.</li>
+</ul>
+<p><strong>Big Database Types</strong></p>
+<ul>
+<li>analytic system (data warehouses) (e.g. Impala, Hive)</li>
+<li>operational systems<ul>
+<li>non-transactional, unstructured or semi-structured (e.g. HBase, MongoDB)</li>
+<li>non-transactional, structured (e.g. Kudu)</li>
+<li>ACID-compliant RDBMSs (e.g. Splice Machine, Trafodian, Phoenix)</li>
+</ul>
+</li>
+<li>search (e.g. Solr, Elasticsearch)</li>
+</ul>
+<p><strong>Features of SQL for Big Data Analysis</strong></p>
+<ul>
+<li>Challenges: distributed transactions, data variety</li>
+<li>What We Keep: SELECT, seeing data as tables, DDL, DCL</li>
+<li>What We Give Up: unique columns, primary &amp; foreign key constraints, synchronized indexes, triggers and stored procedures, UPDATE and DELETE</li>
+<li>What We Add: table partitions and bucketing (bucketing divides a table in an essentially non-predictable way, while table partitioning uses a predictable method to divide a table), support for may file formats (e.g. csv, xml, json), complex data types</li>
+</ul>
+<p><strong>Storing Big Data</strong></p>
+<ul>
+<li>places: on premises / in cloud / hybrid (using both)</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tag/SQL/" rel="tag"># SQL</a>
+              <a href="/tag/big-data-analysis/" rel="tag"># big data analysis</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/10/05/Introduction to SQL/" rel="prev" title="Introduction to Structured Query Language (SQL)">
+      <i class="fa fa-chevron-left"></i> Introduction to Structured Query Language (SQL)
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Foundations-for-Big-Data-Analysis-with-SQL"><span class="nav-number">1.</span> <span class="nav-text">Foundations for Big Data Analysis with SQL</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Week-1-Data-and-Databases"><span class="nav-number">1.0.1.</span> <span class="nav-text">Week 1: Data and Databases</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Week-2-Relational-Databases-and-SQL"><span class="nav-number">1.0.2.</span> <span class="nav-text">Week 2: Relational Databases and SQL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Week-3-Big-Data"><span class="nav-number">1.0.3.</span> <span class="nav-text">Week 3: Big Data</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Week-4-SQL-Tools-for-Big-Data-Analysis"><span class="nav-number">1.0.4.</span> <span class="nav-text">Week 4: SQL Tools for Big Data Analysis</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Zhenyuan Ma"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Zhenyuan Ma</p>
+  <div class="site-description" itemprop="description">Master student in McGill University 
+</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ZhenyuanMa" title="GitHub → https://github.com/ZhenyuanMa" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhenyuan.ma@mail.mcgill.ca" title="E-Mail → mailto:zhenyuan.ma@mail.mcgill.ca" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhenyuan Ma</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>

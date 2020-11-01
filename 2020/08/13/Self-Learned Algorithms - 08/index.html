@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Self-Learned Algorithms - 08This is my learning note about algorithms. Reference  《小浩算法》) - 位运算系列">
+<meta name="keywords" content="algorithm">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Self-Learned Algorithms - 08">
+<meta property="og:url" content="http://yoursite.com/2020/08/13/Self-Learned Algorithms - 08/index.html">
+<meta property="og:site_name" content="Zhenyuan Ma">
+<meta property="og:description" content="Self-Learned Algorithms - 08This is my learning note about algorithms. Reference  《小浩算法》) - 位运算系列">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-08-14T18:28:02.281Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Self-Learned Algorithms - 08">
+<meta name="twitter:description" content="Self-Learned Algorithms - 08This is my learning note about algorithms. Reference  《小浩算法》) - 位运算系列">
+
+<link rel="canonical" href="http://yoursite.com/2020/08/13/Self-Learned Algorithms - 08/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Self-Learned Algorithms - 08 | Zhenyuan Ma</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zhenyuan Ma</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right"></div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-links">
+
+    <a href="/links/" rel="section"><i class="fa fa-fw fa-sitemap"></i>links</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="default">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/13/Self-Learned Algorithms - 08/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Zhenyuan Ma">
+      <meta itemprop="description" content="Master student in McGill University 
+">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhenyuan Ma">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Self-Learned Algorithms - 08
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2020-08-13 14:29:44" itemprop="dateCreated datePublished" datetime="2020-08-13T14:29:44-04:00">2020-08-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2020-08-14 14:28:02" itemprop="dateModified" datetime="2020-08-14T14:28:02-04:00">2020-08-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/Algorithm/" itemprop="url" rel="index">
+                    <span itemprop="name">Algorithm</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Self-Learned-Algorithms-08"><a href="#Self-Learned-Algorithms-08" class="headerlink" title="Self-Learned Algorithms - 08"></a>Self-Learned Algorithms - 08</h2><p>This is my learning note about algorithms.</p>
+<p><strong>Reference</strong></p>
+<ul>
+<li><a href="[https://www.geekxh.com/0.0.%E5%AD%A6%E4%B9%A0%E9%A1%BB%E7%9F%A5/01.html](https://www.geekxh.com/0.0.学习须知/01.html">《小浩算法》</a>) - 位运算系列</li>
+</ul>
+<hr>
+<a id="more"></a>
+<!--01-->
+<h4 id="231-2的幂"><a href="#231-2的幂" class="headerlink" title="231.2的幂"></a>231.2的幂</h4><p><a href="https://leetcode-cn.com/problems/power-of-two/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/power-of-two/</a></p>
+<p><strong>解法</strong></p>
+<ul>
+<li>时间复杂度为$O(\log N)$的常规解法</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> n == <span class="number">0</span>:</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"><span class="keyword">while</span> n % <span class="number">2</span> == <span class="number">0</span>:</span><br><span class="line">  n /= <span class="number">2</span></span><br><span class="line"><span class="keyword">return</span> n == <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>位运算：时间复杂度$O(1)$。若$n = 2^x$且$x$为自然数（即$n$为2的幂），则一定满足以下条件：<ul>
+<li>必要性：恒有<code>n &amp; (n - 1) == 0</code>，这是因为$n$二进制最高位为1，其余所有位为0；$n - 1$二进制最高位为0，其余所有位为1。一定满足$n &gt; 0$。</li>
+<li>充分性：<code>n &amp; n-1</code>可以把$n$最低位的1变0，而当<code>n &amp; n-1 == 0</code>时，则说明$n$只有一个1。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> n &gt; <span class="number">0</span> <span class="keyword">and</span> n &amp; (n - <span class="number">1</span>) == <span class="number">0</span></span><br></pre></td></tr></table></figure>
+<!--02-->
+<h4 id="191-位1的个数"><a href="#191-位1的个数" class="headerlink" title="191.位1的个数"></a>191.位1的个数</h4><p><a href="https://leetcode-cn.com/problems/number-of-1-bits/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/number-of-1-bits/</a></p>
+<p><strong>题解</strong></p>
+<ul>
+<li>二进制表达式中数字位数为 ‘1’ 的个数（也被称为<a href="https://baike.baidu.com/item/汉明重量" target="_blank" rel="noopener">汉明重量</a>）。</li>
+<li>可参考一个[多种解法][<a href="https://leetcode-cn.com/problems/number-of-1-bits/solution/javade-17chong-jie-fa-by-sdwwld/]和[blog][https://www.cnblogs.com/graphics/archive/2010/06/21/1752421.html]。" target="_blank" rel="noopener">https://leetcode-cn.com/problems/number-of-1-bits/solution/javade-17chong-jie-fa-by-sdwwld/]和[blog][https://www.cnblogs.com/graphics/archive/2010/06/21/1752421.html]。</a></li>
+</ul>
+<p><strong>解法</strong></p>
+<ul>
+<li>位移：从最后一位往前遍历，检测当前探索数是否为1</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">count = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> (n != <span class="number">0</span>):</span><br><span class="line">  <span class="keyword">if</span> (n &amp; <span class="number">1</span> != <span class="number">0</span>):</span><br><span class="line">  	count += <span class="number">1</span></span><br><span class="line">  n = n&gt;&gt;<span class="number">1</span></span><br><span class="line"><span class="keyword">return</span> count</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>n &amp; (n - 1)</code>可以消去n的二进制表示中最后一个1，其他的1都不会被影响</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">count = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> (n != <span class="number">0</span>):</span><br><span class="line">  n = n &amp; (n - <span class="number">1</span>)</span><br><span class="line">  count += <span class="number">1</span></span><br><span class="line"><span class="keyword">return</span> count</span><br></pre></td></tr></table></figure>
+<!--03-->
+<h4 id="136-只出现一次的数字"><a href="#136-只出现一次的数字" class="headerlink" title="136.只出现一次的数字"></a>136.只出现一次的数字</h4><p><a href="https://leetcode-cn.com/problems/single-number/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/single-number/</a></p>
+<p><strong>题解</strong></p>
+<ul>
+<li>不考虑复杂度的话方法有很多：哈希表储存数字和出现次数、集合储存数字并删掉出现过的数字、集合储存出现过的数字并用出现过数字的两倍减去原数组中数字之和……</li>
+</ul>
+<p><strong>解法</strong></p>
+<ul>
+<li>位运算：异或运算$\oplus$。利用异或运算的性质：<ul>
+<li>任何数和0做异或运算，结果仍然是原来的数，即$a \oplus 0=a$。</li>
+<li>任何数和其自身做异或运算，结果是0，即$a \oplus a=0$。</li>
+<li>异或运算满足交换律和结合律，即$a \oplus b \oplus a=b \oplus a \oplus a=b \oplus (a \oplus a)=b \oplus0=b$。</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> reduce(<span class="keyword">lambda</span> x, y: x ^ y, nums)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>数学：二倍出现的数字减去原数组之和</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> sum(set(nums))*<span class="number">2</span>-sum(nums)</span><br></pre></td></tr></table></figure>
+<!--04-->
+<h4 id="137-只出现一次的数字2"><a href="#137-只出现一次的数字2" class="headerlink" title="137.只出现一次的数字2"></a>137.只出现一次的数字2</h4><p><a href="https://leetcode-cn.com/problems/single-number-ii/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/single-number-ii/</a></p>
+<p><strong>题解</strong></p>
+<ul>
+<li>136题的延续，同样是哈希、位运算、数学计算都可以解决的</li>
+</ul>
+<p><strong>解法</strong></p>
+<ul>
+<li>数学：三倍出现的数字减去原数组之和为所求之数的二倍</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">return</span> (<span class="number">3</span> * sum(set(nums)) - sum(nums)) // <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>哈希表</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hashmap = Counter(nums)</span><br><span class="line"><span class="keyword">for</span> k <span class="keyword">in</span> hashmap.keys():</span><br><span class="line">  <span class="keyword">if</span> hashmap[k] == <span class="number">1</span>:</span><br><span class="line">  	<span class="keyword">return</span> k</span><br></pre></td></tr></table></figure>
+<ul>
+<li>位运算：统计出现次数。[考虑二进制形式中1的出现次数，并对3求余][<a href="https://leetcode-cn.com/problems/single-number-ii/solution/single-number-ii-mo-ni-san-jin-zhi-fa-by-jin407891/]、[使用两个位掩码区分出现的次数][https://leetcode-cn.com/problems/single-number-ii/solution/zhi-chu-xian-yi-ci-de-shu-zi-ii-by-leetcode/]，两种思路有些许差别，但解法相同。" target="_blank" rel="noopener">https://leetcode-cn.com/problems/single-number-ii/solution/single-number-ii-mo-ni-san-jin-zhi-fa-by-jin407891/]、[使用两个位掩码区分出现的次数][https://leetcode-cn.com/problems/single-number-ii/solution/zhi-chu-xian-yi-ci-de-shu-zi-ii-by-leetcode/]，两种思路有些许差别，但解法相同。</a></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 解法1</span></span><br><span class="line">ones, twos = <span class="number">0</span>, <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> num <span class="keyword">in</span> nums:</span><br><span class="line">  ones = ones ^ num &amp; ~twos</span><br><span class="line">  twos = twos ^ num &amp; ~ones</span><br><span class="line"><span class="keyword">return</span> ones</span><br><span class="line"></span><br><span class="line"><span class="comment"># 解法2</span></span><br><span class="line">seen_once = seen_twice = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> num <span class="keyword">in</span> nums:</span><br><span class="line">  <span class="comment"># first appearance: </span></span><br><span class="line">  <span class="comment"># add num to seen_once </span></span><br><span class="line">  <span class="comment"># don't add to seen_twice because of presence in seen_once</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># second appearance: </span></span><br><span class="line">  <span class="comment"># remove num from seen_once </span></span><br><span class="line">  <span class="comment"># add num to seen_twice</span></span><br><span class="line"></span><br><span class="line">  <span class="comment"># third appearance: </span></span><br><span class="line">  <span class="comment"># don't add to seen_once because of presence in seen_twice</span></span><br><span class="line">  <span class="comment"># remove num from seen_twice</span></span><br><span class="line">  seen_once = ~seen_twice &amp; (seen_once ^ num)</span><br><span class="line">  seen_twice = ~seen_once &amp; (seen_twice ^ num)</span><br><span class="line"></span><br><span class="line"><span class="keyword">return</span> seen_once</span><br></pre></td></tr></table></figure>
+<!--05-->
+<h4 id="268-缺失数字"><a href="#268-缺失数字" class="headerlink" title="268.缺失数字"></a>268.缺失数字</h4><p><a href="https://leetcode-cn.com/problems/missing-number/" target="_blank" rel="noopener">https://leetcode-cn.com/problems/missing-number/</a></p>
+<p><strong>解法</strong></p>
+<ul>
+<li>排序，对照下标找出缺失</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">nums.sort()</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(nums)):</span><br><span class="line">  <span class="keyword">if</span> nums[i] != i:</span><br><span class="line">    <span class="keyword">return</span> i</span><br><span class="line"><span class="keyword">return</span> len(nums)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>哈希表</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">num_set = set(nums)</span><br><span class="line">n = len(nums) + <span class="number">1</span></span><br><span class="line"><span class="keyword">for</span> number <span class="keyword">in</span> range(n):</span><br><span class="line">  <span class="keyword">if</span> number <span class="keyword">not</span> <span class="keyword">in</span> num_set:</span><br><span class="line">  	<span class="keyword">return</span> number</span><br></pre></td></tr></table></figure>
+<ul>
+<li>位运算</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">missing = len(nums)</span><br><span class="line"><span class="keyword">for</span> i, num <span class="keyword">in</span> enumerate(nums):</span><br><span class="line">	missing ^= i ^ num</span><br><span class="line"><span class="keyword">return</span> missing</span><br></pre></td></tr></table></figure>
+<ul>
+<li>数学法：数列求和减去数组之和，但有溢出的风险</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">expected_sum = len(nums)*(len(nums)+<span class="number">1</span>)//<span class="number">2</span></span><br><span class="line">actual_sum = sum(nums)</span><br><span class="line"><span class="keyword">return</span> expected_sum - actual_sum</span><br><span class="line"></span><br><span class="line"><span class="comment"># 避免溢出可以边求和边利用索引值</span></span><br><span class="line">res = len(nums)</span><br><span class="line"><span class="keyword">for</span> idx, num <span class="keyword">in</span> enumerate(nums):</span><br><span class="line">  res += idx - num</span><br><span class="line"><span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tag/algorithm/" rel="tag"># algorithm</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/12/Self-Learned Algorithms - 07/" rel="prev" title="Self-Learned Algorithms - 07">
+      <i class="fa fa-chevron-left"></i> Self-Learned Algorithms - 07
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/22/Self-Learned Algorithms - 09/" rel="next" title="Self-Learned Algorithms - 09">
+      Self-Learned Algorithms - 09 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Self-Learned-Algorithms-08"><span class="nav-number">1.</span> <span class="nav-text">Self-Learned Algorithms - 08</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#231-2的幂"><span class="nav-number">1.0.1.</span> <span class="nav-text">231.2的幂</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#191-位1的个数"><span class="nav-number">1.0.2.</span> <span class="nav-text">191.位1的个数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#136-只出现一次的数字"><span class="nav-number">1.0.3.</span> <span class="nav-text">136.只出现一次的数字</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#137-只出现一次的数字2"><span class="nav-number">1.0.4.</span> <span class="nav-text">137.只出现一次的数字2</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#268-缺失数字"><span class="nav-number">1.0.5.</span> <span class="nav-text">268.缺失数字</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Zhenyuan Ma"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Zhenyuan Ma</p>
+  <div class="site-description" itemprop="description">Master student in McGill University 
+</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ZhenyuanMa" title="GitHub → https://github.com/ZhenyuanMa" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhenyuan.ma@mail.mcgill.ca" title="E-Mail → mailto:zhenyuan.ma@mail.mcgill.ca" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhenyuan Ma</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>

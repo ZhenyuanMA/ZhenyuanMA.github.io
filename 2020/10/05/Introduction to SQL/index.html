@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Gemini","version":"7.7.1","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Introduction to Structured Query Language (SQL)This is my learning note of coursera course: [Introduction to Structured Query Language (SQL)][https://www.coursera.org/learn/intro-sql].">
+<meta name="keywords" content="SQL,database">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Introduction to Structured Query Language (SQL)">
+<meta property="og:url" content="http://yoursite.com/2020/10/05/Introduction to SQL/index.html">
+<meta property="og:site_name" content="Zhenyuan Ma">
+<meta property="og:description" content="Introduction to Structured Query Language (SQL)This is my learning note of coursera course: [Introduction to Structured Query Language (SQL)][https://www.coursera.org/learn/intro-sql].">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-10-05T19:07:59.280Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Introduction to Structured Query Language (SQL)">
+<meta name="twitter:description" content="Introduction to Structured Query Language (SQL)This is my learning note of coursera course: [Introduction to Structured Query Language (SQL)][https://www.coursera.org/learn/intro-sql].">
+
+<link rel="canonical" href="http://yoursite.com/2020/10/05/Introduction to SQL/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Introduction to Structured Query Language (SQL) | Zhenyuan Ma</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Zhenyuan Ma</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right"></div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>Tags</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>Categories</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+        <li class="menu-item menu-item-links">
+
+    <a href="/links/" rel="section"><i class="fa fa-fw fa-sitemap"></i>links</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="default">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/10/05/Introduction to SQL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Zhenyuan Ma">
+      <meta itemprop="description" content="Master student in McGill University 
+">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Zhenyuan Ma">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Introduction to Structured Query Language (SQL)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2020-10-05 09:23:15 / Modified: 15:07:59" itemprop="dateCreated datePublished" datetime="2020-10-05T09:23:15-04:00">2020-10-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/category/Big-Data-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Big Data Learning</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="Introduction-to-Structured-Query-Language-SQL"><a href="#Introduction-to-Structured-Query-Language-SQL" class="headerlink" title="Introduction to Structured Query Language (SQL)"></a>Introduction to Structured Query Language (SQL)</h2><p>This is my learning note of coursera course: [Introduction to Structured Query Language (SQL)][<a href="https://www.coursera.org/learn/intro-sql" target="_blank" rel="noopener">https://www.coursera.org/learn/intro-sql</a>].</p>
+<hr>
+<a id="more"></a>
+<!--01-->
+<h4 id="Week-1-Installing-PHP-and-SQL"><a href="#Week-1-Installing-PHP-and-SQL" class="headerlink" title="Week 1: Installing PHP and SQL"></a>Week 1: Installing PHP and SQL</h4><ul>
+<li>Using [MAMP][mamp.info] for local server environment</li>
+</ul>
+<!--02-->
+<h4 id="Week-2-Introduction-to-Structured-Query-Language-SQL"><a href="#Week-2-Introduction-to-Structured-Query-Language-SQL" class="headerlink" title="Week 2: Introduction to Structured Query Language (SQL)"></a>Week 2: Introduction to Structured Query Language (SQL)</h4><p><strong>Overview</strong></p>
+<ul>
+<li>The difference between [sequential access][<a href="https://en.wikipedia.org/wiki/Sequential_access" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Sequential_access</a>] and [random access][<a href="https://en.wikipedia.org/wiki/Random_access" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Random_access</a>]: like a tape and a CD, or a scroll and a book.</li>
+<li>SQL is the language we use to issue commands to the database: create/insert; read/select; update; delete data.</li>
+</ul>
+<p><strong>Basic SQL Operations</strong></p>
+<ul>
+<li>CREATE; USE; DESCRIBE; INSERT; DELETE; UPDATE; SELECT; </li>
+<li><code>CREATE TABLE table (attribute type, ...);</code></li>
+<li><code>INSERT INTO table (attribute) VALUES (value);</code></li>
+<li><code>DELETE FROM table WHERE condition;</code></li>
+<li><code>UPDATE table SET attribute=value WHERE condition;</code></li>
+<li><code>SELECT columns FROM table WHERE condition LIKE condition ORDER BY attribute LIMIT rownum;</code></li>
+</ul>
+<p><strong>Data Types</strong></p>
+<ul>
+<li>Text: <code>CHAR</code> or <code>VARCHAR</code>, <code>TINYTEXT</code> (up to 255 chars), <code>TEXT</code> (65k), <code>MEDIUMTEXT</code> (16M), <code>LONGTEXT</code> (4G)</li>
+<li>Binary (rarely used): <code>BYTE</code> (255 bytes), <code>VARBINARY</code> (65K), <code>BLOB</code> (also tiny, medium and long, same as text)</li>
+<li>Integer: <code>TINYINT</code> (-128,128), <code>SMALLINT</code> (-32768,32768), <code>INT</code> or <code>INTEGER</code>, <code>BIGINT</code></li>
+<li>Floating: <code>FLOAT</code> (32-bit), <code>DOUBLE</code> (64-bit)</li>
+<li>Dates: <code>TIMESTAMP</code>, <code>DATETIME</code>, <code>DATE</code>, <code>TIME</code>, <code>NOW()</code></li>
+</ul>
+<p><strong>Keys and Indexes</strong></p>
+<ul>
+<li><code>user_id INT UNSIGNED NOT NULL AUTO_INCREMENT</code></li>
+<li>set primary key and index by <code>PRIMARY KEY()</code> and <code>INDEX()</code>, usually using Hash or B-Trees for index</li>
+</ul>
+<!--03-->
+<h4 id="Week-3-Database-Design"><a href="#Week-3-Database-Design" class="headerlink" title="Week 3: Database Design"></a>Week 3: Database Design</h4><p><strong>Normalization and Foreign Keys</strong></p>
+<ul>
+<li>(3NF) Do not replicate data. Instead, reference data. Use integers for keys and for references. Add a special ‘key’ columd to each table.</li>
+<li>logical key: what the outside world uses for lookup (something we want to find and enter in the search box) (it can be changed)</li>
+<li>Never use logical key as primary key!</li>
+<li><code>CONSTRAINT FOREIGN KEY (xx_id) REFERENCES table (xx_id) ON SELETE CASCADE ON UPDATE CASCADE</code></li>
+<li><code>FROM table1 JOIN table2 ON table1.xx_id = table2.xx_id</code></li>
+</ul>
+<!--04-->
+<h4 id="Week-4-Many-To-Many"><a href="#Week-4-Many-To-Many" class="headerlink" title="Week 4: Many-To-Many"></a>Week 4: Many-To-Many</h4><p><strong>Many-to-Many Relationships</strong></p>
+<ul>
+<li>There is usually no separate primary key in many to many relationship.</li>
+<li>In designing database, consider the tradeoff between complexity and speed</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tag/SQL/" rel="tag"># SQL</a>
+              <a href="/tag/database/" rel="tag"># database</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/22/Self-Learned Algorithms - 09/" rel="prev" title="Self-Learned Algorithms - 09">
+      <i class="fa fa-chevron-left"></i> Self-Learned Algorithms - 09
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/10/05/Foundations for Big Data Analysis with SQL/" rel="next" title="Foundations for Big Data Analysis with SQL">
+      Foundations for Big Data Analysis with SQL <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Introduction-to-Structured-Query-Language-SQL"><span class="nav-number">1.</span> <span class="nav-text">Introduction to Structured Query Language (SQL)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Week-1-Installing-PHP-and-SQL"><span class="nav-number">1.0.1.</span> <span class="nav-text">Week 1: Installing PHP and SQL</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Week-2-Introduction-to-Structured-Query-Language-SQL"><span class="nav-number">1.0.2.</span> <span class="nav-text">Week 2: Introduction to Structured Query Language (SQL)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Week-3-Database-Design"><span class="nav-number">1.0.3.</span> <span class="nav-text">Week 3: Database Design</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Week-4-Many-To-Many"><span class="nav-number">1.0.4.</span> <span class="nav-text">Week 4: Many-To-Many</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Zhenyuan Ma"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Zhenyuan Ma</p>
+  <div class="site-description" itemprop="description">Master student in McGill University 
+</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">categories</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">tags</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/ZhenyuanMa" title="GitHub → https://github.com/ZhenyuanMa" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:zhenyuan.ma@mail.mcgill.ca" title="E-Mail → mailto:zhenyuan.ma@mail.mcgill.ca" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Zhenyuan Ma</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.9.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.7.1
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+      
+
+<script>
+  if (typeof MathJax === 'undefined') {
+    window.MathJax = {
+      tex: {
+        inlineMath: {'[+]': [['$', '$']]},
+        tags: 'ams'
+      },
+      options: {
+        renderActions: {
+          findScript: [10, doc => {
+            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+              const display = !!node.type.match(/; *mode=display/);
+              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+              const text = document.createTextNode('');
+              node.parentNode.replaceChild(text, node);
+              math.start = {node: text, delim: '', n: 0};
+              math.end = {node: text, delim: '', n: 0};
+              doc.math.push(math);
+            });
+          }, '', false],
+          insertedScript: [200, () => {
+            document.querySelectorAll('mjx-container').forEach(node => {
+              let target = node.parentNode;
+              if (target.nodeName.toLowerCase() === 'li') {
+                target.parentNode.classList.add('has-jax');
+              }
+            });
+          }, '', false]
+        }
+      }
+    };
+    (function () {
+      var script = document.createElement('script');
+      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
+      script.defer = true;
+      document.head.appendChild(script);
+    })();
+  } else {
+    MathJax.startup.document.state(0);
+    MathJax.texReset();
+    MathJax.typeset();
+  }
+</script>
+
+    
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/wanko.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.7,"opacityOnHover":0.2},"log":false});</script></body>
+</html>
